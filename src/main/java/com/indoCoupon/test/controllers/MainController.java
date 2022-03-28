@@ -76,5 +76,19 @@ public class MainController {
 		return apiResponseModal;
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/saveUser",method = RequestMethod.POST)
+	public APIResponseModal saveUser(@ModelAttribute AppUsers user,HttpSession session) {
+		logger.info("Inside Main Controller: "+ user);
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
+		List<String> errorList = new ArrayList<>();
+		AppUsers loggedInUser = null;
+
+		
+		
+		
+		
+		return apiResponseModal;
+	}
+
 }

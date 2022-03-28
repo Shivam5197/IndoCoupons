@@ -18,9 +18,25 @@
 <link type="text/css" href="<s:url value="/CSS/registerLogin.css"/>" rel="stylesheet">
 <!-- /indoCoupon_02/src/main/resources/static/CSS/.css --> 
 <!-- Font Icon -->
-<link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+<!-- <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+ -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+  rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+  rel="stylesheet"
+/>
 
 <!-- Internal JS files -->
 <script type="text/javascript" charset="utf8"
@@ -35,50 +51,56 @@
 </head>
 <body>
 
-    <div class="main">
-        <!-- Sing in  Form -->
-        <section class="sign-in">
-            <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="images/signin-image.jpg" alt="sing in image"></figure>
-                        <a href="#" class="signup-image-link">Create an account</a>
-                    </div>
-
-                    <div class="signin-form">
-                        <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="login-form">
-                            <div class="form-group">
-                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Password"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
-                            </div>
-                            <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
-                            </div>
-                        </form>
-                        <div class="social-login">
-                            <span class="social-label">Or login with</span>
-                            <ul class="socials">
-                                <li><a href="#">Registered Email</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+  <section class="mx-auto my-5" style="max-width: 23rem;">
+      
+    <div class="card card-form mt-2 mb-4">
+      <div class="card-body rounded-top pink darken-4">
+        <h3 class="font-weight-bold text-center text-uppercase text-white my-4">Sign up</h3>
+        <form class="pb-5 px-2" _lpchecked="1">
+          <!-- Username -->
+          <div class="d-flex justify-content-start align-items-center mb-4">
+            <i class="far fa-hand-point-right fa-lg text-white fa-fw me-3"></i>
+            <div class="form-outline form-white w-100">
+              <input type="text" id="userName" class="form-control" data-mdb-toggle="tooltip" title="Username Must be unique" />
+              <label class="form-label" for="form1Example2">User name</label>
             </div>
-        </section>
+          </div>
+		<!-- Password -->
+          <div class="d-flex justify-content-start align-items-center pb-3">
+            <i class="far fa-star fa-lg text-white fa-fw me-3"></i>
+            <div class="form-outline form-white w-100">
+              <input type="password" id="password" class="form-control" />
+              <label class="form-label" for="form1Example4">Password</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card card-form-2 mb-0 z-depth-0">
+        <div class="card-body">
+          <form class="text-center">
+            <button class="btn btn-outline-danger btn-rounded btn-block my-4 z-depth-0"
+              type="submit">Sign In</button>
+             <hr>
+            <p>New to IndoCoupon
+              <em>please</em>
+              <a class="pink-accent-text" href="/indoCoupon/v1/home">Register</a> 
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
-</div>    
+
+<!-- MDB -->
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
+></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<%-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> --%>
 </body>
 </html>
 
