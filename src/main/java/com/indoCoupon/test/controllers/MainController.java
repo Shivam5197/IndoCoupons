@@ -78,15 +78,32 @@ public class MainController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveUser",method = RequestMethod.POST)
-	public APIResponseModal saveUser(@ModelAttribute AppUsers user,HttpSession session) {
+	public APIResponseModal saveUser(@ModelAttribute AppUsers user,HttpSession session) throws Exception {
 		logger.info("Inside Main Controller: "+ user);
 		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
 		List<String> errorList = new ArrayList<>();
 		AppUsers loggedInUser = null;
-
 		
-		
-		
+		try {
+			if(new Utils().isNotNull(user)) {
+				userService.saveUser(user, errorList);
+				if(errorList.isEmpty()) {
+					apiResponseModal.setStatus(HttpStatus.OK);
+					apiResponseModal.setData(user.toString());
+					apiResponseModal.setMessage("Registered Successfully !!");
+				}
+			}else {
+				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+				apiResponseModal.setData(null);
+				apiResponseModal.setMessage("Please Provide all the Required Fields");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+			apiResponseModal.setData(null);
+			apiResponseModal.setMessage("Something went Wrong please try again");
+		}
 		
 		return apiResponseModal;
 	}

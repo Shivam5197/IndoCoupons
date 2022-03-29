@@ -105,7 +105,7 @@
         <div class="card-body">
           <form class="text-center">
             <button class="btn btn-outline-danger btn-rounded btn-block my-4 z-depth-0"
-              type="submit">Sign Up</button>
+              type="submit" onclick="saveUser()">Sign Up</button>
              <hr>
             <p>Already our user
               <em>please</em>
@@ -128,8 +128,8 @@
 <%-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> --%>
 
 <script>
-function validateLogin(){
-	console.log("Validate MEthod");
+function saveUser(){
+	console.log("save MEthod");
 	let formData = new FormData();
 
 	formData.append("userName", $("#userName").val());
@@ -140,7 +140,7 @@ function validateLogin(){
 	
 	var obj = new MasterAjax();
 	obj.requestType = "POST";
-	obj.url = "indoCoupon/v1/validateUser";
+	obj.url = "indoCoupon/v1/saveUser";
 	obj.data = formData;
 	obj.contentType = false;
     obj.processData = false;
