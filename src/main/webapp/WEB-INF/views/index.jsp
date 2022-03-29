@@ -88,6 +88,8 @@
             <div class="form-outline form-white w-100">
               <input type="tel" id="phoneNumber" class="form-control" />
               <label class="form-label" for="form1Example3">Phone number</label>
+              <input type="tel" id="form1Example3" class="form-control" />
+              <label class="form-label" for="form1Example3">Phone number </label>
             </div>
           </div>
 
