@@ -87,7 +87,7 @@
             <i class="fas fa-phone fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
               <input type="tel" id="form1Example3" class="form-control" />
-              <label class="form-label" for="form1Example3">Phone number</label>
+              <label class="form-label" for="form1Example3">Phone number </label>
             </div>
           </div>
 
