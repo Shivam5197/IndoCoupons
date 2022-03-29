@@ -28,5 +28,23 @@ public class Utils {
 		return apiResponseModel;
 	}
 
+	public Boolean isNotNull(String string) {
+		if(string != null && !string.isEmpty())
+			return true;
+	return false;	
+	}
+	
+	public Boolean isNotNull(Integer string) {
+		if(string != null)
+			return true;
+	return false;	
+	}
+	
+	public Boolean isNotNull(Object string) {
+		if(string != null)
+			return true;
+	return false;	
+	}
+
 	
 }

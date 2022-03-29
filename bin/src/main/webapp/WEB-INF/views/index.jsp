@@ -58,20 +58,45 @@
       <div class="card-body rounded-top pink darken-4">
         <h3 class="font-weight-bold text-center text-uppercase text-white my-4">Sign up</h3>
         <form class="pb-5 px-2" _lpchecked="1">
+          <!-- Full name -->
+          <div class="d-flex justify-content-start align-items-center mb-4">
+            <i class="far fa-user fa-lg text-white fa-fw me-3"></i>
+            <div class="form-outline form-white w-100">
+              <input type="text" id="form1Example1" class="form-control" />
+              <label class="form-label" for="form1Example1">Full name</label>
+            </div>
+          </div>
           <!-- Username -->
           <div class="d-flex justify-content-start align-items-center mb-4">
             <i class="far fa-hand-point-right fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
-              <input type="text" id="userName" class="form-control" data-mdb-toggle="tooltip" title="Username Must be unique" />
+              <input type="text" id="form1Example2" class="form-control" data-mdb-toggle="tooltip" title="Username Must be unique" />
               <label class="form-label" for="form1Example2">User name</label>
             </div>
           </div>
-		<!-- Password -->
+          <!-- Email -->
+          <div class="d-flex justify-content-start align-items-center mb-4">
+            <i class="far fa-envelope fa-lg text-white fa-fw me-3"></i>
+            <div class="form-outline form-white w-100">
+              <input type="text" id="form1Example3" class="form-control" />
+              <label class="form-label" for="form1Example3">E-mail</label>
+            </div>
+          </div>
+          <!-- Telephone -->
+          <div class="d-flex justify-content-start align-items-center mb-4">
+            <i class="fas fa-phone fa-lg text-white fa-fw me-3"></i>
+            <div class="form-outline form-white w-100">
+              <input type="tel" id="form1Example3" class="form-control" />
+              <label class="form-label" for="form1Example3">Phone number</label>
+            </div>
+          </div>
+
           <div class="d-flex justify-content-start align-items-center pb-3">
             <i class="far fa-star fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
-              <input type="password" id="password" class="form-control" />
+              <input type="password" id="form1Example4" class="form-control" />
               <label class="form-label" for="form1Example4">Password</label>
+              <div class="form-helper text-white">At least 8 characters and 1 digit</div>
             </div>
           </div>
         </form>
@@ -80,11 +105,11 @@
         <div class="card-body">
           <form class="text-center">
             <button class="btn btn-outline-danger btn-rounded btn-block my-4 z-depth-0"
-              type="submit">Sign In</button>
+              type="submit">Sign in</button>
              <hr>
-            <p>New to IndoCoupon
+            <p>Already our user
               <em>please</em>
-              <a class="pink-accent-text" href="/indoCoupon/v1/home">Register</a> 
+              <a class="pink-accent-text" href="indoCoupon/v1/login" target="_blank">Login</a> 
           </form>
         </div>
       </div>

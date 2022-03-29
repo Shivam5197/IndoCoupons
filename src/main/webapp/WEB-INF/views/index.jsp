@@ -62,7 +62,7 @@
           <div class="d-flex justify-content-start align-items-center mb-4">
             <i class="far fa-user fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
-              <input type="text" id="form1Example1" class="form-control" />
+              <input type="text" id="fullName" class="form-control" />
               <label class="form-label" for="form1Example1">Full name</label>
             </div>
           </div>
@@ -70,7 +70,7 @@
           <div class="d-flex justify-content-start align-items-center mb-4">
             <i class="far fa-hand-point-right fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
-              <input type="text" id="form1Example2" class="form-control" data-mdb-toggle="tooltip" title="Username Must be unique" />
+              <input type="text" id="userName" class="form-control" data-mdb-toggle="tooltip" title="Username Must be unique" />
               <label class="form-label" for="form1Example2">User name</label>
             </div>
           </div>
@@ -78,7 +78,7 @@
           <div class="d-flex justify-content-start align-items-center mb-4">
             <i class="far fa-envelope fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
-              <input type="text" id="form1Example3" class="form-control" />
+              <input type="text" id="email" class="form-control" />
               <label class="form-label" for="form1Example3">E-mail</label>
             </div>
           </div>
@@ -86,6 +86,8 @@
           <div class="d-flex justify-content-start align-items-center mb-4">
             <i class="fas fa-phone fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
+              <input type="tel" id="phoneNumber" class="form-control" />
+              <label class="form-label" for="form1Example3">Phone number</label>
               <input type="tel" id="form1Example3" class="form-control" />
               <label class="form-label" for="form1Example3">Phone number </label>
             </div>
@@ -94,7 +96,7 @@
           <div class="d-flex justify-content-start align-items-center pb-3">
             <i class="far fa-star fa-lg text-white fa-fw me-3"></i>
             <div class="form-outline form-white w-100">
-              <input type="password" id="form1Example4" class="form-control" />
+              <input type="password" id="password" class="form-control" />
               <label class="form-label" for="form1Example4">Password</label>
               <div class="form-helper text-white">At least 8 characters and 1 digit</div>
             </div>
@@ -105,11 +107,11 @@
         <div class="card-body">
           <form class="text-center">
             <button class="btn btn-outline-danger btn-rounded btn-block my-4 z-depth-0"
-              type="submit">Sign in</button>
+              type="submit" onclick="saveUser()">Sign Up</button>
              <hr>
             <p>Already our user
               <em>please</em>
-              <a class="pink-accent-text" href="indoCoupon/v1/login" target="_blank">Login</a> 
+              <a class="pink-accent-text" href="/indoCoupon/v1/login">Login</a> 
           </form>
         </div>
       </div>
@@ -126,41 +128,21 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> --%>
-</body>
-</html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <script>
-function validateLogin(){
-	console.log("Validate MEthod");
+<script>
+function saveUser(){
+	console.log("save MEthod");
 	let formData = new FormData();
 
-	formData.append("userName", $("#userNameLog").val());
-	formData.append("password", $("#passwordLog").val());
+	formData.append("userName", $("#userName").val());
+	formData.append("password", $("#password").val());
+	formData.append("fullName", $("#fullName").val());
+	formData.append("email", $("#email").val());
+	formData.append("phoneNumber", $("#phoneNumber").val());
 	
 	var obj = new MasterAjax();
 	obj.requestType = "POST";
-	obj.url = "indoCoupon/v1/validateUser";
+	obj.url = "indoCoupon/v1/saveUser";
 	obj.data = formData;
 	obj.contentType = false;
     obj.processData = false;
@@ -187,4 +169,30 @@ function validateLogin(){
 	});	
 	
 }
-</script> -->
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->
