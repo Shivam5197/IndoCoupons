@@ -1,198 +1,148 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>IndoCoupons</title>
+	pageEncoding="ISO-8859-1"%>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IndoEra</title>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%-- <%@include file="/WEB-INF/views/Constants/Constatnt.jsp" %> --%>
+
+<%-- <%@include file="/WEB-INF/views/Utils/toIncludeConstant.jsp" %> --%>
+
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
 
 <%-- Sweet Alert CDN --%>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link> 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%-- Sweet Alert CDN --%>
 
-<link type="text/css" href="<s:url value="/CSS/registerLogin.css"/>" rel="stylesheet">
-<!-- /indoCoupon_02/src/main/resources/static/CSS/.css --> 
-<!-- Font Icon -->
-<!-- <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
- -->
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+<%-- <%@include file="/WEB-INF/views/Utils/toIncludeConstant.jsp"%>
+ --%>
 
-<!-- Font Awesome -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"
-/>
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-  rel="stylesheet"
-/>
-<!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
-  rel="stylesheet"
-/>
+<script src="https://use.fontawesome.com/4803dd6473.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
 
 <!-- Internal JS files -->
 <script type="text/javascript" charset="utf8"
-	src="<s:url value="/JS/UtilsJs/MasterAjax.js"/>"></script>
+	src="<c:url value="/JS/UtilsJs/MasterAjax.js"/>"></script>
 <script type="text/javascript" charset="utf8"
-	src="<s:url value="/JS/UtilsJs/utils.js"/>"></script>
+	src="<c:url value="/JS/UtilsJs/utils.js"/>"></script>
 <!-- Internal JS files -->
+
+<!-- Input field CSS to be Applied all over the project -->
+<%-- <link type="text/css" href="<s:url value="/CSS/Header/inputField.css"/>" rel="stylesheet">
+ --%>
+
 <script type="text/javascript">
 	var global_contextPath = "${pageContext.request.contextPath}";
 </script>
 
+<style>
+.text-center{
+	text-align: center;
+}
+
+</style>
+
 </head>
 <body>
-
-<div class="container">
-  <section class="mx-auto my-5" style="max-width: 23rem;">
-      
-    <div class="card card-form mt-2 mb-4">
-      <div class="card-body rounded-top pink darken-4">
-        <h3 class="font-weight-bold text-center text-uppercase text-white my-4">Sign up</h3>
-        <form class="pb-5 px-2" _lpchecked="1">
-          <!-- Full name -->
-          <div class="d-flex justify-content-start align-items-center mb-4">
-            <i class="far fa-user fa-lg text-white fa-fw me-3"></i>
-            <div class="form-outline form-white w-100">
-              <input type="text" id="fullName" class="form-control" />
-              <label class="form-label" for="form1Example1">Full name</label>
-            </div>
-          </div>
-          <!-- Username -->
-          <div class="d-flex justify-content-start align-items-center mb-4">
-            <i class="far fa-hand-point-right fa-lg text-white fa-fw me-3"></i>
-            <div class="form-outline form-white w-100">
-              <input type="text" id="userName" class="form-control" data-mdb-toggle="tooltip" title="Username Must be unique" />
-              <label class="form-label" for="form1Example2">User name</label>
-            </div>
-          </div>
-          <!-- Email -->
-          <div class="d-flex justify-content-start align-items-center mb-4">
-            <i class="far fa-envelope fa-lg text-white fa-fw me-3"></i>
-            <div class="form-outline form-white w-100">
-              <input type="text" id="email" class="form-control" />
-              <label class="form-label" for="form1Example3">E-mail</label>
-            </div>
-          </div>
-          <!-- Telephone -->
-          <div class="d-flex justify-content-start align-items-center mb-4">
-            <i class="fas fa-phone fa-lg text-white fa-fw me-3"></i>
-            <div class="form-outline form-white w-100">
-              <input type="tel" id="phoneNumber" class="form-control" />
-              <label class="form-label" for="form1Example3">Phone number</label>
-              <input type="tel" id="form1Example3" class="form-control" />
-              <label class="form-label" for="form1Example3">Phone number </label>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-start align-items-center pb-3">
-            <i class="far fa-star fa-lg text-white fa-fw me-3"></i>
-            <div class="form-outline form-white w-100">
-              <input type="password" id="password" class="form-control" />
-              <label class="form-label" for="form1Example4">Password</label>
-              <div class="form-helper text-white">At least 8 characters and 1 digit</div>
-            </div>
-          </div>
+    <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+          	<%-- 							<img  title=""
+									class="d-block w-100 corrusle-img" alt=""> --%>
+									
+									
+			 <img src="<s:url value="/images/logo.jpg"/>" alt=""  height="50" class="d-inline-block align-text-top">
+<!--             <img src="images/logo.PNG" alt=""  height="50" class="d-inline-block align-text-top"> -->
+          </a>
+          <form class="justify-content-end">
+            <button type="button" class="btn btn-outline-primary">Sign UP</button>
+            <button type="button" class="btn btn-outline-primary">Login</button>
         </form>
-      </div>
-      <div class="card card-form-2 mb-0 z-depth-0">
-        <div class="card-body">
-          <form class="text-center">
-            <button class="btn btn-outline-danger btn-rounded btn-block my-4 z-depth-0"
-              type="submit" onclick="saveUser()">Sign Up</button>
-             <hr>
-            <p>Already our user
-              <em>please</em>
-              <a class="pink-accent-text" href="/indoCoupon/v1/login">Login</a> 
-          </form>
         </div>
-      </div>
-    </div>
-  </section>
-</div>
+      </nav>
+	  
+	  <div class="row" style="margin-top: 11vh;">
+		<div class="col text-center" style="border: 1px solid #d8cece; font-weight: bold;">
+		 <a href="">Coupons</a> 
+		</div>
+		<div class="col text-center" style="border: 1px solid #d8cece; font-weight: bold;">
+			<a href="">Stores</a> 
+		</div>
+		<div class="col text-center" style="border: 1px solid #d8cece; font-weight: bold;" >
+			<a href="">Research/Tools</a> 
+		</div>
+	  </div>
+	</div>
+
+	  <div class="title text-center" style="margin-top: 2vh;">
+		  <h1 style="font-family: serif; color: #0a0a4b;"> You Shop You Save We Give </h1>
+	  </div>
+
+	  <div class="container card shadow" style="margin-top: 5vh;">
+		<h2 class="text-center" style="color: #0a0a4b;"> Trending Coupons </h2>
+
+		<table class="table mt-3">
+			<tbody>
+			  <tr>
+				<th scope="row">Amazon</th>
+				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td>500Rs</td>
+				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+			  </tr>
+			  <tr>
+				<th scope="row">Flipkart</th>
+				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td>500Rs</td>
+				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+			  </tr>
+			  <tr>
+				<th scope="row">Nyka</th>
+				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td>500Rs</td>
+				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+			  </tr>
+			  <tr>
+				<th scope="row">Walmart</th>
+				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td>500Rs</td>
+				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+			  </tr>
+
+			</tbody>
+		  </table>
 
 
-<!-- MDB -->
-<script
-  type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
-></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<%-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> --%>
+	  </div>
 
-<script>
-function saveUser(){
-	console.log("save MEthod");
-	let formData = new FormData();
 
-	formData.append("userName", $("#userName").val());
-	formData.append("password", $("#password").val());
-	formData.append("fullName", $("#fullName").val());
-	formData.append("email", $("#email").val());
-	formData.append("phoneNumber", $("#phoneNumber").val());
-	
-	var obj = new MasterAjax();
-	obj.requestType = "POST";
-	obj.url = "indoCoupon/v1/saveUser";
-	obj.data = formData;
-	obj.contentType = false;
-    obj.processData = false;
-	obj.dataType= "application/json";
-	obj.requestData(function(responseData){
-		if(responseData.status == "OK" || responseData.status == "ok"){
-		let user = JSON.parse(responseData.data);
-		swal({
-				  title: "Congrats !",
-  				  text: responseData.message,
-  				  icon: "success",
- 				  button: "OK",
-		});	
-		}else{
-			console.log(responseData)
-		swal({
-				  title: "Failed !",
-  				  text: responseData.message,
-  				  icon: "warning",
- 			   	 dangerMode: true,	
-				  button: "OK",
-		});	
-		}
-	});	
-	
-}
-</script>
 
+
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+		
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  -->
