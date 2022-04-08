@@ -67,17 +67,13 @@
 <body>
     <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-          	<%-- 							<img  title=""
-									class="d-block w-100 corrusle-img" alt=""> --%>
-									
-									
+          <a class="navbar-brand" href="#">				
 			 <img src="<s:url value="/images/logo.jpg"/>" alt=""  height="50" class="d-inline-block align-text-top">
-<!--             <img src="images/logo.PNG" alt=""  height="50" class="d-inline-block align-text-top"> -->
+
           </a>
-          <form class="justify-content-end">
-            <button type="button" class="btn btn-outline-primary">Sign UP</button>
-            <button type="button" class="btn btn-outline-primary">Login</button>
+          <form class="justify-content-end" id="login-SignUp_Button_Div">
+            <a type="button" href="/indoCoupon/v1/sign-up" class="btn btn-outline-primary">Sign UP</a>
+            <a type="button" href="/indoCoupon/v1/login" class="btn btn-outline-primary">Login</a>
         </form>
         </div>
       </nav>
@@ -106,27 +102,27 @@
 			<tbody>
 			  <tr>
 				<th scope="row">Amazon</th>
-				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td class="text-center">789456123455645</td>
 				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
 			  </tr>
 			  <tr>
 				<th scope="row">Flipkart</th>
-				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td class="text-center">789456123455645</td>
 				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
 			  </tr>
 			  <tr>
 				<th scope="row">Nyka</th>
-				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td class="text-center">789456123455645</td>
 				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
 			  </tr>
 			  <tr>
 				<th scope="row">Walmart</th>
-				<td class="text-center">Lorem  doloribus voluptate consequatur natus nulla optio praesentium ipsa molestiae.</td>
+				<td class="text-center">789456123455645</td>
 				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Make it Yours"></td>
+				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
 			  </tr>
 
 			</tbody>

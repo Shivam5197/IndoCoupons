@@ -52,6 +52,11 @@ public class MainController {
 		return "login";
 	}
 
+	@RequestMapping(value = "/sign-up")
+	public String registerPage() {
+		return "register";
+	}
+
 
 	@ResponseBody
 	@RequestMapping(value = "/validateUser",method = RequestMethod.POST)
