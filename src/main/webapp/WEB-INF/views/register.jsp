@@ -74,7 +74,7 @@ body {
 
 .logincard {
 	width: 60vw;
-	height: 70vh;
+	height: 84vh;
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -93,58 +93,77 @@ body {
 
 </head>
 <body>
-	<nav class="navbar fixed-top sticky-top"
-		style="background-color: #0a0a4b; position: fixed;">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="/indoCoupon/v1/home"> <img
+    <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/indoCoupon/v1/home"> <img
 				src="<s:url value="/images/logo.jpg"/>" alt="" height="50"
-				class="d-inline-block align-text-top">
-			</a>
-		</div>
-	</nav>
+				class="d-inline-block align-text-top"></a>
+        </div>
+      </nav>
 
-	<div class="container-fluid">
+	  
+	  <div class="container-fluid">
 		<div class="logincard card shadow-lg p-3 bg-white rounded">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="header">Sign In</div>
+					<div class="header">
+						Sign UP
+					</div>
 				</div>
 			</div>
 
 			<div class="row mt-2">
-				<div class="col-md-12">
-					<div class="input_div">
-						<input type="text" class="inputTxt" id="userNameLog"
-							name="userNameLog" required="required" placeholder=""> <label
-							for="" class="inputlab">User Name</label>
-					</div>
+			  <div class="col-md-12">
+			  <div class="input_div">
+			  <input type="text" class="inputTxt" id="fullName" name="fullName" required="required" placeholder="">
+			  <label for="" class="inputlab">Full Name</label>
+			  </div>
+			  </div>
+			  <div class="col-md-12">
+			  <div class="input_div">
+			  <input type="text" class="inputTxt" id="userName" name="userName" required="required" placeholder="">
+			  <label for="" class="inputlab">User Name</label>
+			  </div>
+			  </div>
+			  <div class="col-md-12">
+				<div class="input_div">
+				<input type="email" class="inputTxt" id="email" name="email" required="required" placeholder="">
+				<label for="" class="inputlab">Email</label>
+				</div>
 				</div>
 				<div class="col-md-12">
 					<div class="input_div">
-						<input type="password" class="inputTxt" id="passwordLog"
-							name="passwordLog" required="required" placeholder=""> <label
-							for="" class="inputlab">Password</label>
+					<input type="tel" class="inputTxt" id="phoneNumber" name="phoneNumber" required="required" placeholder="">
+					<label for="" class="inputlab">Phone Number</label>
 					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12"></div>
-				<div class="col-md-12 mt-1">
-					<a onclick="" class="anchor-link" href=""
-						style="cursor: pointer; color: blue;">Forgot Password ??</a>
-				</div>
-				<div class="col-md-12 mt-1">
-					New to IndoCoupon? <a class="font-weight-bold anchor-link"
-						href="/indoCoupon/v1/sign-up" style="cursor: pointer;">Sign
-						Up</a> here.
-				</div>
-			</div>
+					</div>
+					<div class="col-md-12">
+						<div class="input_div">
+						<input type="password" class="inputTxt" id="password" name="password" required="required" placeholder="">
+						<label for="" class="inputlab">Password</label>
+						</div>
+						</div>
 
-			<button type="submit" onclick="validateLogin();"
-				class="btn btn-outline-primary mt-2">Login</button>
+			  </div>
+			  <div class="row">
+			  <div class="col-md-12">
+			  </div>
+			  <div class="col-md-12 mt-1">
+				Already a user
+				<a class="font-weight-bold anchor-link"  href="/indoCoupon/v1/login" style="cursor: pointer;" >Sign In</a>
+				here.
+			  </div>
+			  </div>
+		
+			<button type="submit" onclick="validateLogin();" class="btn btn-outline-primary mt-2">Sign UP</button>;
+		
 
 		</div>
-	</div>
+	  </div>
+
+
+
+
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
