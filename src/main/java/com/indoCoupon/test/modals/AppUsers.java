@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.Hibernate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -132,12 +134,23 @@ public AppUsers(String fullName, String email, String phoneNumber, String userNa
 //	this.couponsModals = couponsModals;
 //}
 //
-//@Override
-//public String toString() {
-//	return "{\"userId\":\"" + userId + "\", \"fullName\":\"" + fullName + "\", \"email\":\"" + email
-//			+ "\", \"phoneNumber\":\"" + phoneNumber + "\", \"userName\":\"" + userName + "\", \"password\":\""
-//			+ password + "\", \"addedAt\":\"" + addedAt + "\", \"role\":\"" + role + "\", \"couponsModals\":\""
-//			+ couponsModals + "\"}";
-//}
+
+//+ (Hibernate.isInitialized(storeOwner) && storeOwner != null ? ",\"storeOwner\":" + storeOwner :"" )
+
+@Override
+public String toString() {
+
+    return "{\"" +(userId != null ? "userId\":\"" + userId + "\" " : "")
+            +(fullName != null ? ",\"fullName\":\"" + fullName + "\" " : "")
+            +(email != null ? ",\"email\":\"" + email + "\" " : "")
+            +(phoneNumber != null ? ",\"phoneNumber\":\"" + phoneNumber + "\" " : "")
+            +(userName != null ? ",\"userName\":\"" + userName + "\" " : "")
+            +(password != null ? ",\"password\":\"" + password + "\" " : "")
+            + (Hibernate.isInitialized(couponsModals) && couponsModals != null ? ",\"couponsModals\":" + couponsModals   : "")
+            +(addedAt != null ? ",\"addedAt\":\"" + addedAt + "\" " : "")
+            + "}\t";
+
+
+}
 
 }

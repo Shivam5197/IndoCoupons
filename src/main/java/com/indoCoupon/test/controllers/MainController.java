@@ -53,7 +53,10 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/sign-up")
-	public String registerPage() {
+	public String registerPage(HttpSession session) {
+		if(session.getAttribute("loggedInUser") != null) {
+			return homePage;
+		}
 		return "register";
 	}
 
@@ -70,14 +73,13 @@ public class MainController {
 			apiResponseModal.setData(loggedInUser.toString());
 			apiResponseModal.setStatus(HttpStatus.OK);
 			apiResponseModal.setMessage("Verified!!");
-			if(loggedInUser !=null) {
 			session.setAttribute("loggedInUser", loggedInUser);
-			}
 		}else {
 		apiResponseModal.setData(null);
 		apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
 		apiResponseModal.setMessage("Username and Password are Mandatory fields!!");
 		}
+		logger.info("Logged in USer  : " + apiResponseModal);
 		return apiResponseModal;
 	}
 	
@@ -87,15 +89,16 @@ public class MainController {
 		logger.info("Inside Main Controller: "+ user);
 		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
 		List<String> errorList = new ArrayList<>();
-		AppUsers loggedInUser = null;
 		
 		try {
-			if(new Utils().isNotNull(user)) {
+		if(new Utils().isNotNull(user) && new Utils().isNotNull(user.getUserName())&& new Utils().isNotNull(user.getFullName())
+				&& new Utils().isNotNull(user.getEmail())&& new Utils().isNotNull(user.getPhoneNumber())
+				&& new Utils().isNotNull(user.getPassword())) {
 				userService.saveUser(user, errorList);
 				if(errorList.isEmpty()) {
 					apiResponseModal.setStatus(HttpStatus.OK);
 					apiResponseModal.setData(user.toString());
-					apiResponseModal.setMessage("Registered Successfully !!");
+					apiResponseModal.setMessage("Registered Successfully !! Will be redirected to Login page to continue!!");
 				}
 			}else {
 				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);

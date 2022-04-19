@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IndoEra</title>
+<title>IndoCoupon</title>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -46,9 +46,9 @@
 
 <!-- Internal JS files -->
 <script type="text/javascript" charset="utf8"
-	src="<c:url value="/JS/UtilsJs/MasterAjax.js"/>"></script>
+	src="<s:url value="/JS/UtilsJs/MasterAjax.js"/>"></script>
 <script type="text/javascript" charset="utf8"
-	src="<c:url value="/JS/UtilsJs/utils.js"/>"></script>
+	src="<s:url value="/JS/UtilsJs/utils.js"/>"></script>
 <!-- Internal JS files -->
 
 <!-- Input field CSS to be Applied all over the project -->
@@ -145,6 +145,57 @@ body {
 
 		</div>
 	</div>
+
+
+<script>
+
+function validateLogin(){
+	console.log("Validate MEthod");
+	let formData = new FormData();
+
+	formData.append("userName", $("#userNameLog").val());
+	formData.append("password", $("#passwordLog").val());
+	
+	var obj = new MasterAjax();
+	obj.requestType = "POST";
+	obj.url = "indoCoupon/v1/validateUser";
+	obj.data = formData;
+	obj.contentType = false;
+    obj.processData = false;
+	obj.dataType= "application/json";
+	obj.requestData(function(responseData){
+//		console.log("REspons :  : "+JSON.parse(responseData.data));
+		if(responseData.status == "OK" || responseData.status == "ok"){
+		let user = responseData.data;
+		swal({
+				  title: "Congrats !",
+  				  text: responseData.message,
+  				  icon: "success",
+ 				  button: "OK",
+		});	
+	
+/* 		sleep(5000);
+		if(user.role == _const_userRoles.slt_admin){
+			window.location = '/indoUser/admin-indo';
+		}else if(user.role == _const_userRoles.store_owner){
+			window.location = '/indoUser/sales-indo';
+		}
+ */		
+		//Failed Response		
+		}else{
+			console.log(responseData)
+		swal({
+				  title: "Failed !",
+  				  text: responseData.message,
+  				  icon: "warning",
+ 			   	 dangerMode: true,	
+				  button: "OK",
+		});	
+		}
+	});	
+}
+
+</script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
