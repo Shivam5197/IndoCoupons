@@ -41,7 +41,7 @@ public class Utils {
 	}
 	
 	public Boolean isNotNull(Object string) {
-		if(string != null)
+		if(string != null && string !="")
 			return true;
 	return false;	
 	}

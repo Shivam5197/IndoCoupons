@@ -10,7 +10,7 @@
 <title>IndoEra</title>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%-- <%@include file="/WEB-INF/views/Constants/Constatnt.jsp" %> --%>
 
@@ -33,7 +33,7 @@
 <%-- <%@include file="/WEB-INF/views/Utils/toIncludeConstant.jsp"%>
  --%>
 
-<link type="text/css" href="<s:url value="/CSS/inputField.css"/>" rel="stylesheet">
+<link type="text/css" href="<c:url value="/CSS/inputField.css"/>" rel="stylesheet">
 
 <script src="https://use.fontawesome.com/4803dd6473.js"></script>
 <script
@@ -47,6 +47,7 @@
 <!-- Internal JS files -->
 <script type="text/javascript" charset="utf8"
 	src="<c:url value="/JS/UtilsJs/MasterAjax.js"/>"></script>
+
 <script type="text/javascript" charset="utf8"
 	src="<c:url value="/JS/UtilsJs/utils.js"/>"></script>
 <!-- Internal JS files -->
@@ -96,11 +97,10 @@ body {
     <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
         <div class="container-fluid">
           <a class="navbar-brand" href="/indoCoupon/v1/home"> <img
-				src="<s:url value="/images/logo.jpg"/>" alt="" height="50"
+				src="<c:url value="/images/logo.jpg"/>" alt="" height="50"
 				class="d-inline-block align-text-top"></a>
         </div>
       </nav>
-
 	  
 	  <div class="container-fluid">
 		<div class="logincard card shadow-lg p-3 bg-white rounded">
@@ -155,13 +155,57 @@ body {
 			  </div>
 			  </div>
 		
-			<button type="submit" onclick="validateLogin();" class="btn btn-outline-primary mt-2">Sign UP</button>;
-		
+			<button type="submit" onclick="registerUser();" class="btn btn-outline-primary mt-2">Sign UP</button>;
 
 		</div>
 	  </div>
 
+<script>
+function registerUser(){
+	console.log("Register User MEthod");
 
+	let formData = new FormData();
+	formData.append("fullName", $("#fullName").val());
+	formData.append("userName", $("#userName").val());
+	formData.append("email", $("#email").val());
+	formData.append("phoneNumber", $("#phoneNumber").val());
+	formData.append("password", $("#password").val());
+
+	var obj = new MasterAjax();
+	obj.requestType = "POST";
+	obj.url = "indoCoupon/v1/saveUser";
+	obj.data = formData;
+	obj.contentType = false;
+    obj.processData = false;
+	obj.dataType= "application/json";
+	obj.requestData(function(responseData){
+		if(responseData.status == "OK" || responseData.status == "ok"){
+
+		swal({
+				  title: "Congrats !",
+  				  text: responseData.message,
+  				  icon: "success",
+ 				  button: "OK",
+		});
+
+		sleep(5000);
+			window.location = '/indoCoupon/v1/login';
+		
+		}else{
+			console.log(responseData)
+			swal({
+				  title: "OOPS !",
+				  text: responseData.message,
+				  icon: "Danger",
+				  button: "OK",
+		});
+
+		}
+	});	
+}
+
+
+</script>
 
 
 
