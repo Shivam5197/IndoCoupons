@@ -18,8 +18,8 @@ public class Constants {
 	public static class couponStatus{
 		public static final int ACTIVE = 0;
 		public static final int EXPIRED = 1;
-		public static final int USED = 2;
-		public static final int TRASH = 3;
+		public static final int USEDBYSELF = 2;
+		public static final int SOLD = 3;
 	}
 
 }

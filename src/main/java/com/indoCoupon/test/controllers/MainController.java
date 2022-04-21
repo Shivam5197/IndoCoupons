@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.indoCoupon.test.modals.AppUsers;
 import com.indoCoupon.test.services.UserService;
 import com.indoCoupon.test.utils.APIResponseModal;
+import com.indoCoupon.test.utils.Constants;
 import com.indoCoupon.test.utils.Utils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,10 +39,13 @@ public class MainController {
 	private static final Logger logger = LogManager.getLogger(MainController.class);
 
 	public static final String homePage = "index";
+	public static final String loginPage = "login";
+	public static final String adminPage = "admin";
+
 	
 	@Autowired
 	UserService userService;
-	
+
 	@RequestMapping(value = "/home")
 	public String homePage() {
 		return homePage;
@@ -49,9 +53,18 @@ public class MainController {
 
 	@RequestMapping(value = "/login")
 	public String loginPage() {
-		return "login";
+		return loginPage;
 	}
-
+	
+	@RequestMapping(value = "/adminDashboard")
+	public String admin(HttpSession session) {
+		AppUsers admin = (AppUsers) session.getAttribute("loggedInUser");
+		if(new Utils().isNotNull(admin) &&admin.getRole() == Constants.userRole.ADMIN) {
+			return adminPage;
+		}
+		return "redirect:/indoCoupon/v1/login";
+	}
+	
 	@RequestMapping(value = "/sign-up")
 	public String registerPage(HttpSession session) {
 		if(session.getAttribute("loggedInUser") != null) {
@@ -68,32 +81,43 @@ public class MainController {
 		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
 		List<String> errorList = new ArrayList<>();
 		AppUsers loggedInUser = null;
-		if(user.getUserName()!= null & user.getPassword() !=null) {
-			loggedInUser = userService.validateUser(user, errorList);
-			apiResponseModal.setData(loggedInUser.toString());
-			apiResponseModal.setStatus(HttpStatus.OK);
-			apiResponseModal.setMessage("Verified!!");
-			session.setAttribute("loggedInUser", loggedInUser);
-		}else {
-		apiResponseModal.setData(null);
-		apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
-		apiResponseModal.setMessage("Username and Password are Mandatory fields!!");
+		try {
+			if(user.getUserName()!= null & user.getPassword() !=null) {
+				loggedInUser = userService.validateUser(user, errorList);
+
+				if(new Utils().isNotNull(loggedInUser) && errorList.isEmpty()) {
+					apiResponseModal.setData(loggedInUser.toString());
+					apiResponseModal.setStatus(HttpStatus.OK);
+					apiResponseModal.setMessage("Welcome!!");
+					session.setAttribute("loggedInUser", loggedInUser);
+				}else {
+					apiResponseModal.setData(null);
+					apiResponseModal.setStatus(HttpStatus.NOT_FOUND);
+					apiResponseModal.setMessage(errorList.toString());
+				}
+			}else {
+				apiResponseModal.setData(null);
+				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+				apiResponseModal.setMessage("Username and Password are Mandatory fields!!");
+			}
+			logger.info("Logged in USer  : " + apiResponseModal);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		logger.info("Logged in USer  : " + apiResponseModal);
 		return apiResponseModal;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/saveUser",method = RequestMethod.POST)
 	public APIResponseModal saveUser(@ModelAttribute AppUsers user,HttpSession session) throws Exception {
 		logger.info("Inside Main Controller: "+ user);
 		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
 		List<String> errorList = new ArrayList<>();
-		
+
 		try {
-		if(new Utils().isNotNull(user) && new Utils().isNotNull(user.getUserName())&& new Utils().isNotNull(user.getFullName())
-				&& new Utils().isNotNull(user.getEmail())&& new Utils().isNotNull(user.getPhoneNumber())
-				&& new Utils().isNotNull(user.getPassword())) {
+			if(new Utils().isNotNull(user) && new Utils().isNotNull(user.getUserName())&& new Utils().isNotNull(user.getFullName())
+					&& new Utils().isNotNull(user.getEmail())&& new Utils().isNotNull(user.getPhoneNumber())
+					&& new Utils().isNotNull(user.getPassword())) {
 				userService.saveUser(user, errorList);
 				if(errorList.isEmpty()) {
 					apiResponseModal.setStatus(HttpStatus.OK);
@@ -112,7 +136,7 @@ public class MainController {
 			apiResponseModal.setData(null);
 			apiResponseModal.setMessage("Something went Wrong please try again");
 		}
-		
+
 		return apiResponseModal;
 	}
 
