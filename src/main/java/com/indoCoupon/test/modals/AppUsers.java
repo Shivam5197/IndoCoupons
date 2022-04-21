@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.indoCoupon.test.modals;
 
 import java.sql.Timestamp;
@@ -143,6 +140,7 @@ public String toString() {
     return "{\"" +(userId != null ? "userId\":\"" + userId + "\" " : "")
             +(fullName != null ? ",\"fullName\":\"" + fullName + "\" " : "")
             +(email != null ? ",\"email\":\"" + email + "\" " : "")
+            +(role != null ? ",\"role\":\"" + role + "\" " : "")
             +(phoneNumber != null ? ",\"phoneNumber\":\"" + phoneNumber + "\" " : "")
             +(userName != null ? ",\"userName\":\"" + userName + "\" " : "")
             +(password != null ? ",\"password\":\"" + password + "\" " : "")

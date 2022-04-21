@@ -14,7 +14,7 @@
 
 <%-- <%@include file="/WEB-INF/views/Constants/Constatnt.jsp" %> --%>
 
-<%-- <%@include file="/WEB-INF/views/Utils/toIncludeConstant.jsp" %> --%>
+<%@include file="/WEB-INF/views/Utils/toIncludeConstants.jsp" %>
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
@@ -33,7 +33,8 @@
 <%-- <%@include file="/WEB-INF/views/Utils/toIncludeConstant.jsp"%>
  --%>
 
-<link type="text/css" href="<s:url value="/CSS/inputField.css"/>" rel="stylesheet">
+<link type="text/css" href="<s:url value="/CSS/inputField.css"/>"
+	rel="stylesheet">
 
 <script src="https://use.fontawesome.com/4803dd6473.js"></script>
 <script
@@ -135,8 +136,8 @@ body {
 				</div>
 				<div class="col-md-12 mt-1">
 					New to IndoCoupon? <a class="font-weight-bold anchor-link"
-						href="/indoCoupon/v1/sign-up" style="cursor: pointer;">Sign
-						Up</a> here.
+						href="/indoCoupon/v1/sign-up" style="cursor: pointer;">Sign Up</a>
+					here.
 				</div>
 			</div>
 
@@ -147,55 +148,54 @@ body {
 	</div>
 
 
-<script>
+	<script>
+		function validateLogin() {
+			let formData = new FormData();
 
-function validateLogin(){
-	console.log("Validate MEthod");
-	let formData = new FormData();
+			formData.append("userName", $("#userNameLog").val());
+			formData.append("password", $("#passwordLog").val());
 
-	formData.append("userName", $("#userNameLog").val());
-	formData.append("password", $("#passwordLog").val());
-	
-	var obj = new MasterAjax();
-	obj.requestType = "POST";
-	obj.url = "indoCoupon/v1/validateUser";
-	obj.data = formData;
-	obj.contentType = false;
-    obj.processData = false;
-	obj.dataType= "application/json";
-	obj.requestData(function(responseData){
-//		console.log("REspons :  : "+JSON.parse(responseData.data));
-		if(responseData.status == "OK" || responseData.status == "ok"){
-		let user = responseData.data;
-		swal({
-				  title: "Congrats !",
-  				  text: responseData.message,
-  				  icon: "success",
- 				  button: "OK",
-		});	
-	
-/* 		sleep(5000);
-		if(user.role == _const_userRoles.slt_admin){
-			window.location = '/indoUser/admin-indo';
-		}else if(user.role == _const_userRoles.store_owner){
-			window.location = '/indoUser/sales-indo';
+			var obj = new MasterAjax();
+			obj.requestType = "POST";
+			obj.url = "indoCoupon/v1/validateUser";
+			obj.data = formData;
+			obj.contentType = false;
+			obj.processData = false;
+			obj.dataType = "application/json";
+			obj.requestData(function(responseData) {
+						//		console.log("REspons :  : "+JSON.parse(responseData.data));
+						if (responseData.status == "OK"
+								|| responseData.status == "ok") {
+							let user =JSON.parse(responseData.data);
+							swal({
+								title : "Congrats !",
+								text : responseData.message,
+								icon : "success",
+								button : "OK",
+							});
+
+							sleep(5000);
+							console.log("User role from backend : " + user.role)
+							console.log("User role from frondEnd : " + _const_userRoles.slt_admin)
+ 							if (user.role == _const_userRoles.slt_admin) {
+								window.location = '/indoCoupon/v1/adminDashboard';
+							} else {
+								window.location = '/indoCoupon/v1/home';
+							}
+ 
+						} else {
+							console.log(responseData)
+							swal({
+								title : "Failed !",
+								text : responseData.message,
+								icon : "warning",
+								dangerMode : true,
+								button : "OK",
+							});
+						}
+					});
 		}
- */		
-		//Failed Response		
-		}else{
-			console.log(responseData)
-		swal({
-				  title: "Failed !",
-  				  text: responseData.message,
-  				  icon: "warning",
- 			   	 dangerMode: true,	
-				  button: "OK",
-		});	
-		}
-	});	
-}
-
-</script>
+	</script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
