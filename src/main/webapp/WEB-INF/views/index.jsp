@@ -29,6 +29,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%-- Sweet Alert CDN --%>
 
+<link rel="shortcut icon" href="">
 <%-- <%@include file="/WEB-INF/views/Utils/toIncludeConstant.jsp"%>
  --%>
 
@@ -46,6 +47,9 @@
 	src="<c:url value="/JS/UtilsJs/MasterAjax.js"/>"></script>
 <script type="text/javascript" charset="utf8"
 	src="<c:url value="/JS/UtilsJs/utils.js"/>"></script>
+<script type="text/javascript" charset="utf8"
+	src="<c:url value="/JS/indexJs.js"/>"></script>
+
 <!-- Internal JS files -->
 
 <!-- Input field CSS to be Applied all over the project -->
@@ -72,8 +76,6 @@
 
           </a>
           <form class="justify-content-end" id="login-SignUp_Button_Div">
-            <a type="button" href="/indoCoupon/v1/sign-up" class="btn btn-outline-primary">Sign UP</a>
-            <a type="button" href="/indoCoupon/v1/login" class="btn btn-outline-primary">Login</a>
         </form>
         </div>
       </nav>
@@ -89,7 +91,7 @@
 			<a href="">Research/Tools</a> 
 		</div>
 	  </div>
-	</div>
+
 
 	  <div class="title text-center" style="margin-top: 2vh;">
 		  <h1 style="font-family: serif; color: #0a0a4b;"> You Shop You Save We Give </h1>
@@ -122,7 +124,7 @@
 				<th scope="row">Walmart</th>
 				<td class="text-center">789456123455645</td>
 				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
+				<td><input type="button" class="btn btn-primary" onclick="check()" value="Get Pin"></td>
 			  </tr>
 
 			</tbody>
