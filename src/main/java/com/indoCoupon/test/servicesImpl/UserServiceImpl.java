@@ -3,7 +3,6 @@
  */
 package com.indoCoupon.test.servicesImpl;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -21,6 +20,7 @@ import com.indoCoupon.test.repo.UserRepo;
 import com.indoCoupon.test.services.UserService;
 import com.indoCoupon.test.utils.Constants;
 import com.indoCoupon.test.utils.Utils;
+import com.indoCoupon.test.utils.mail.MailService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +43,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	CouponRepo couponRepo;
 
+	@Autowired
+	MailService mailService;
+	
 	@Override
 	public AppUsers saveUser(AppUsers user, List<String> errorList) {
 		AppUsers userToSave = null;	
@@ -51,6 +54,7 @@ public class UserServiceImpl implements UserService {
 			user.setRole(Constants.userRole.CUSTOMER);
 			user.setAddedAt(new java.sql.Timestamp(System.currentTimeMillis()));
 			userToSave =userRepo.save(user);
+			mailService.WelcomeMail(user, errorList);
 		}catch(Exception e) {
 			e.printStackTrace();
 			errorList.add("Something went Wrong! While Create new User please try again ! ");

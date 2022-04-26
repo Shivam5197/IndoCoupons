@@ -23,6 +23,8 @@ import com.indoCoupon.test.services.UserService;
 import com.indoCoupon.test.utils.APIResponseModal;
 import com.indoCoupon.test.utils.Constants;
 import com.indoCoupon.test.utils.Utils;
+import com.indoCoupon.test.utils.mail.MailDTO;
+import com.indoCoupon.test.utils.mail.MailService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,8 +43,7 @@ public class MainController {
 	public static final String homePage = "index";
 	public static final String loginPage = "login";
 	public static final String adminPage = "admin";
-
-	
+		
 	@Autowired
 	UserService userService;
 
@@ -54,6 +55,41 @@ public class MainController {
 	@RequestMapping(value = "/login")
 	public String loginPage() {
 		return loginPage;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/checkUser",method = {RequestMethod.POST,RequestMethod.GET})
+	public APIResponseModal checkUser(HttpSession session) {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
+		try {
+			AppUsers loginUser = (AppUsers) session.getAttribute("loggedInUser");		
+
+			if(loginUser !=null) {
+				apiResponseModal.setData(loginUser.toString());
+				apiResponseModal.setStatus(HttpStatus.OK);
+				apiResponseModal.setMessage("User already Logged in");
+			}else {
+				apiResponseModal.setData(null);
+				apiResponseModal.setStatus(HttpStatus.OK);
+				apiResponseModal.setMessage("No user logged in!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		log.info("Api Response CheckUSer: " + apiResponseModal);
+		return apiResponseModal;
+	}
+	
+	@RequestMapping(value = "/account_settings")
+	public String getAccountDetails(HttpSession session) {
+		AppUsers user = (AppUsers) session.getAttribute("loggedInUser");
+		
+		if(new Utils().isNotNull(user)) {
+			return "settings";
+		}else {
+			return loginPage;
+		}
 	}
 	
 	@RequestMapping(value = "/adminDashboard")
@@ -119,6 +155,7 @@ public class MainController {
 					&& new Utils().isNotNull(user.getEmail())&& new Utils().isNotNull(user.getPhoneNumber())
 					&& new Utils().isNotNull(user.getPassword())) {
 				userService.saveUser(user, errorList);
+				log.info("ErrorList Afte Save USER CALL:  "+errorList);
 				if(errorList.isEmpty()) {
 					apiResponseModal.setStatus(HttpStatus.OK);
 					apiResponseModal.setData(user.toString());
@@ -130,14 +167,28 @@ public class MainController {
 				apiResponseModal.setMessage("Please Provide all the Required Fields");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
 			apiResponseModal.setData(null);
 			apiResponseModal.setMessage("Something went Wrong please try again");
 		}
 
+//		log.info("API Response Modal : " + apiResponseModal);
 		return apiResponseModal;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
+	public String logoutUser(HttpSession session) {
+		try {
+			if(new Utils().isNotNull(session)) {
+				session.invalidate();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return homePage;
+	}
+
 
 }
