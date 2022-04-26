@@ -14,7 +14,7 @@
 
 <%-- <%@include file="/WEB-INF/views/Constants/Constatnt.jsp" %> --%>
 
-<%@include file="/WEB-INF/views/Utils/toIncludeConstants.jsp" %>
+<%@include file="/WEB-INF/views/Utils/toIncludeConstants.jsp"%>
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
@@ -25,7 +25,8 @@
 	rel="stylesheet" id="bootstrap-css">
 
 <%-- Sweet Alert CDN --%>
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link> 
+<link rel='stylesheet'
+	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%-- Sweet Alert CDN --%>
 
@@ -49,6 +50,8 @@
 	src="<c:url value="/JS/UtilsJs/utils.js"/>"></script>
 <script type="text/javascript" charset="utf8"
 	src="<c:url value="/JS/indexJs.js"/>"></script>
+<script type="text/javascript" charset="utf8"
+	src="<c:url value="/JS/accountSettings.js"/>"></script>
 
 <!-- Internal JS files -->
 
@@ -61,86 +64,70 @@
 </script>
 
 <style>
-.text-center{
+.text-center {
 	text-align: center;
 }
-
 </style>
 
 </head>
 <body>
-    <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">				
-			 <img src="<s:url value="/images/logo.jpg"/>" alt=""  height="50" class="d-inline-block align-text-top">
+	<nav class="navbar fixed-top sticky-top"
+		style="background-color: #0a0a4b; position: fixed;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img
+				src="<s:url value="/images/logo.jpg"/>" alt="" height="50"
+				class="d-inline-block align-text-top">
 
-          </a>
-          <form class="justify-content-end" id="login-SignUp_Button_Div">
-        </form>
-        </div>
-      </nav>
-	  
-	  <div class="row" style="margin-top: 11vh;">
-		<div class="col text-center" style="border: 1px solid #d8cece; font-weight: bold;">
-		 <a href="">Coupons</a> 
+			</a>
+			<form class="justify-content-end">
+				<a type="button" href="#" class="btn btn-outline-primary">Logout</a>
+			</form>
 		</div>
-		<div class="col text-center" style="border: 1px solid #d8cece; font-weight: bold;">
-			<a href="">Stores</a> 
+	</nav>
+
+
+	<div class="container card shadow" style="margin-top: 11vh;">
+		<div class="row">
+			<!-- 		<div class="col-md-12"> -->
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<nav class="nav nav-pills nav-justified" id="myTab">
+					<a class="nav-link active" aria-current="page" href="#">General Settings</a> 
+					<a class="nav-link" href="#">Reset Password</a> 
+					<a class="nav-link" href="#">Manage Cards</a> 
+					<a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Coupons Purchased</a>
+				</nav>
+			</div>
+			<div class="col-md-2"></div>
 		</div>
-		<div class="col text-center" style="border: 1px solid #d8cece; font-weight: bold;" >
-			<a href="">Research/Tools</a> 
+	</div>
+
+	<div class="container card shadow" style="margin-top: 5vh;">
+		<div class="row">
+
 		</div>
-	  </div>
-
-
-	  <div class="title text-center" style="margin-top: 2vh;">
-		  <h1 style="font-family: serif; color: #0a0a4b;"> You Shop You Save We Give </h1>
-	  </div>
-
-	  <div  class="container card shadow" style="margin-top: 5vh;">
-		<h2 class="text-center" style="color: #0a0a4b;"> Trending Coupons </h2>
-
-		<table class="table mt-3">
-			<tbody>
-			  <tr>
-				<th scope="row">Amazon</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
-			  </tr>
-			  <tr>
-				<th scope="row">Flipkart</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
-			  </tr>
-			  <tr>
-				<th scope="row">Nyka</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
-			  </tr>
-			  <tr>
-				<th scope="row">Walmart</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" onclick="check()" value="Get Pin"></td>
-			  </tr>
-
-			</tbody>
-		  </table>
+	</div>
 
 
 
-	  </div>
+	<script>
+		var triggerTabList = [].slice.call(document
+				.querySelectorAll('#myTab a'))
+		triggerTabList.forEach(function(triggerEl) {
+			var tabTrigger = new bootstrap.Tab(triggerEl)
 
-
+			triggerEl.addEventListener('click', function(event) {
+				event.preventDefault()
+				tabTrigger.show()
+			})
+		})
+	</script>
 
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		
+
 </body>
 </html>

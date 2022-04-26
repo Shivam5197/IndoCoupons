@@ -34,6 +34,8 @@
  --%>
 
 <link type="text/css" href="<c:url value="/CSS/inputField.css"/>" rel="stylesheet">
+<link type="text/css" href="<c:url value="/CSS/loader.css"/>" rel="stylesheet">
+
 
 <script src="https://use.fontawesome.com/4803dd6473.js"></script>
 <script
@@ -94,6 +96,7 @@ body {
 
 </head>
 <body>
+<div class="loader"></div>
     <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
         <div class="container-fluid">
           <a class="navbar-brand" href="/indoCoupon/v1/home"> <img
@@ -180,15 +183,13 @@ function registerUser(){
 	obj.dataType= "application/json";
 	obj.requestData(function(responseData){
 		if(responseData.status == "OK" || responseData.status == "ok"){
-
 		swal({
 				  title: "Congrats !",
   				  text: responseData.message,
   				  icon: "success",
  				  button: "OK",
 		});
-
-		sleep(5000);
+		sleep(10000);
 			window.location = '/indoCoupon/v1/login';
 		
 		}else{
