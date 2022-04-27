@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -77,14 +78,13 @@ public class MainController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		log.info("Api Response CheckUSer: " + apiResponseModal);
+//		log.info("Api Response CheckUSer: " + apiResponseModal);
 		return apiResponseModal;
 	}
 	
 	@RequestMapping(value = "/account_settings")
 	public String getAccountDetails(HttpSession session) {
 		AppUsers user = (AppUsers) session.getAttribute("loggedInUser");
-		
 		if(new Utils().isNotNull(user)) {
 			return "settings";
 		}else {
@@ -136,7 +136,7 @@ public class MainController {
 				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
 				apiResponseModal.setMessage("Username and Password are Mandatory fields!!");
 			}
-			logger.info("Logged in USer  : " + apiResponseModal);
+//			logger.info("Logged in USer  : " + apiResponseModal);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -177,18 +177,36 @@ public class MainController {
 		return apiResponseModal;
 	}
 	
+	
 	@ResponseBody
+	@RequestMapping(value = "/updateDetails/{id}",method = {RequestMethod.POST,RequestMethod.GET})
+	public APIResponseModal updateUserProfile(@ModelAttribute AppUsers user,@PathVariable("id") Integer customerId,
+			HttpSession session) {
+		List<String> errorList = new ArrayList<>();
+		APIResponseModal apiResponseModal =  new Utils().getDefaultApiResponse();
+		log.info("Path Variable ID : " + customerId);
+		log.info("App User Attribute :" + user);
+		
+		apiResponseModal.setData("Set");
+		apiResponseModal.setStatus(HttpStatus.OK);
+		apiResponseModal.setMessage("Hello");
+		
+		return apiResponseModal;		
+	}
+	
+	
 	@RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
 	public String logoutUser(HttpSession session) {
 		try {
 			if(new Utils().isNotNull(session)) {
 				session.invalidate();
+				return loginPage;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return homePage;
 	}
-
-
+	
+	
 }

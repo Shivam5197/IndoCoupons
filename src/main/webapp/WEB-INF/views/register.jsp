@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IndoEra</title>
+<title>IndoCoupon</title>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -158,15 +158,13 @@ body {
 			  </div>
 			  </div>
 		
-			<button type="submit" onclick="registerUser();" class="btn btn-outline-primary mt-2">Sign UP</button>;
+			<button type="submit" onclick="registerUser();" class="btn btn-outline-primary mt-2">Sign UP</button>
 
 		</div>
 	  </div>
 
 <script>
 function registerUser(){
-	console.log("Register User MEthod");
-
 	let formData = new FormData();
 	formData.append("fullName", $("#fullName").val());
 	formData.append("userName", $("#userName").val());

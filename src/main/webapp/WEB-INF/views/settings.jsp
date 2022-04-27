@@ -34,6 +34,9 @@
 <%-- <%@include file="/WEB-INF/views/Utils/toIncludeConstant.jsp"%>
  --%>
 
+<link type="text/css" href="<c:url value="/CSS/inputField.css"/>" rel="stylesheet">
+<link type="text/css" href="<c:url value="/CSS/loader.css"/>" rel="stylesheet">
+
 <script src="https://use.fontawesome.com/4803dd6473.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -80,7 +83,7 @@
 
 			</a>
 			<form class="justify-content-end">
-				<a type="button" href="#" class="btn btn-outline-primary">Logout</a>
+				<a type="button" href="/indoCoupon/v1/logout" class="btn btn-outline-primary">Logout</a>
 			</form>
 		</div>
 	</nav>
@@ -92,10 +95,10 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<nav class="nav nav-pills nav-justified" id="myTab">
-					<a class="nav-link active" aria-current="page" href="#">General Settings</a> 
+					<a class="nav-link active" aria-current="page" href="#">Your Coupons</a> 
 					<a class="nav-link" href="#">Reset Password</a> 
 					<a class="nav-link" href="#">Manage Cards</a> 
-					<a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Coupons Purchased</a>
+					<a class="nav-link" href="#" onclick="accountDetails();" tabindex="-1" aria-disabled="true">General Settings</a>
 				</nav>
 			</div>
 			<div class="col-md-2"></div>
@@ -104,15 +107,16 @@
 
 	<div class="container card shadow" style="margin-top: 5vh;">
 		<div class="row">
-
+			<div class="col-md-12">
+			<div class="account_set_Workspace"></div>
+		</div>
 		</div>
 	</div>
 
 
 
 	<script>
-		var triggerTabList = [].slice.call(document
-				.querySelectorAll('#myTab a'))
+		var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
 		triggerTabList.forEach(function(triggerEl) {
 			var tabTrigger = new bootstrap.Tab(triggerEl)
 

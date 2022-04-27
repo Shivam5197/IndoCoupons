@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
 				if(new Utils().isNotNull(loginUser)) {
 					if(new BCryptPasswordEncoder().matches(user.getPassword(), loginUser.getPassword())) {
-						log.info("Logged in Service Imple: " + loginUser);
+//						log.info("Logged in Service Imple: " + loginUser);
 						return loginUser;
 					}else {
 						errorList.add("Incorrect Password !! ");
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 //			errorList.add("Something Went Wrong|| Please make sure to use Correct Username and Password !");
 		}
-		log.info("Logged in Service Imple: " + loginUser);
+//		log.info("Logged in Service Imple: " + loginUser);
 		return loginUser;
 	}
 
