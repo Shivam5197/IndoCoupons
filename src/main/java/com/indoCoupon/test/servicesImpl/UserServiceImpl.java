@@ -76,7 +76,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public AppUsers validateUser(AppUsers user, List<String> errorList) {
-
 		AppUsers loginUser = null;
 		try {
 			if(new Utils().isNotNull(user.getUserName()) && new Utils().isNotNull(user.getPassword()) ) {
@@ -104,6 +103,37 @@ public class UserServiceImpl implements UserService {
 		}
 //		log.info("Logged in Service Imple: " + loginUser);
 		return loginUser;
+	}
+
+	@Override
+	public AppUsers updateUser(AppUsers loggedInUser, Integer userId, List<String> errorList) {
+		AppUsers updateUser = new AppUsers();
+//		log.info("Logged in user in ServiceImpl: " + loggedInUser);
+		try {
+			if(new Utils().isNotNull(userId)) {
+				updateUser = userRepo.findByUserId(userId);
+				if(new Utils().isNotNull(loggedInUser.getEmail()) && new Utils().isNotNull(loggedInUser.getFullName()) 
+						&& new Utils().isNotNull(loggedInUser.getPhoneNumber())) {
+					String previousName = updateUser.getFullName();
+					String previousEmail = updateUser.getEmail();
+					String previousPhone = updateUser.getPhoneNumber();
+
+					updateUser.setFullName(loggedInUser.getFullName());
+					updateUser.setEmail(loggedInUser.getEmail());
+					updateUser.setPhoneNumber(loggedInUser.getPhoneNumber());
+					userRepo.save(updateUser);
+					mailService.updateMail(previousName,previousEmail,previousPhone,updateUser, errorList);
+				}else {
+					errorList.add("Please fill all required Fields");
+				}
+			}else {
+				errorList.add("Session Logged out please Login again");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorList.add("Something went Wrong !!");
+		}
+		return updateUser;
 	}
 
 }

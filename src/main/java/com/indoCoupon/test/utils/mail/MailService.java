@@ -19,4 +19,6 @@ public interface MailService {
 	public  void sendMail(MailDTO mailDto,List<String> errorList);
 	
 	public void WelcomeMail(AppUsers user , List<String> errorList );
+	public void updateMail(String previousName, String previousMail, String previousPhone , AppUsers updatedDetails , List<String> errorList );
+
 }

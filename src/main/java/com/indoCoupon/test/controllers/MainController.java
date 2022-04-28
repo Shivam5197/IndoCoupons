@@ -6,6 +6,7 @@ package com.indoCoupon.test.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.indoCoupon.test.modals.AppUsers;
 import com.indoCoupon.test.services.UserService;
@@ -184,19 +186,41 @@ public class MainController {
 			HttpSession session) {
 		List<String> errorList = new ArrayList<>();
 		APIResponseModal apiResponseModal =  new Utils().getDefaultApiResponse();
-		log.info("Path Variable ID : " + customerId);
-		log.info("App User Attribute :" + user);
-		
-		apiResponseModal.setData("Set");
-		apiResponseModal.setStatus(HttpStatus.OK);
-		apiResponseModal.setMessage("Hello");
-		
+//		log.info("User in Controller: "+ user);
+//		log.info("User ID Controller: "+ customerId);
+		try {
+			if(new Utils().isNotNull(customerId) || new Utils().isNotNull(session)) {
+				if(new Utils().isNotNull(user.getEmail()) && new Utils().isNotNull(user.getFullName()) && new Utils().isNotNull(user.getPhoneNumber())) {
+					AppUsers updatedUser =	userService.updateUser(user,customerId,errorList);		
+
+					if(errorList.isEmpty()) {
+						apiResponseModal.setData(updatedUser.toString());
+						apiResponseModal.setMessage("Updated Successfully!");
+						apiResponseModal.setStatus(HttpStatus.OK);
+					}else {
+						apiResponseModal.setData(null);
+						apiResponseModal.setMessage(errorList.toString());
+						apiResponseModal.setStatus(HttpStatus.EXPECTATION_FAILED);
+					}
+				}else {
+					apiResponseModal.setData(null);
+					apiResponseModal.setMessage("Please fill all the fields !!");
+				}
+			}else {
+				apiResponseModal.setData(null);
+				apiResponseModal.setMessage("Session timed out please login again!!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			apiResponseModal.setData(null);
+			apiResponseModal.setMessage("Something Went Wrong !! Please try again aftersome time!!");
+		}
 		return apiResponseModal;		
 	}
 	
-	
 	@RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
 	public String logoutUser(HttpSession session) {
+		
 		try {
 			if(new Utils().isNotNull(session)) {
 				session.invalidate();
@@ -207,6 +231,12 @@ public class MainController {
 		}
 		return homePage;
 	}
+	
+	@RequestMapping(value = "report/{1}")
+	public String reportMethod(@PathVariable Integer reportType) {
+		
+		return "";
+		}
 	
 	
 }

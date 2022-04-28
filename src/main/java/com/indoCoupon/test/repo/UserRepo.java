@@ -15,5 +15,5 @@ import com.indoCoupon.test.modals.AppUsers;
 public interface UserRepo extends JpaRepository<AppUsers, Integer> {
 
 	AppUsers findByUserName(String userName);
-	
+	AppUsers findByUserId(Integer id);
 }

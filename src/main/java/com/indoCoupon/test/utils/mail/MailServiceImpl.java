@@ -14,10 +14,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.indoCoupon.test.modals.AppUsers;
 import com.indoCoupon.test.utils.Utils;
@@ -169,6 +171,90 @@ public class MailServiceImpl implements MailService {
 
 	}
 
+@Override
+	public void updateMail(String previousName, String previousMail, String previousPhone, AppUsers updatedDetails, List<String> errorList) {
+
+	final String baseUrl = 
+			ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();	
+	try {
+		if( new Utils().isNotNull(updatedDetails) ) {
+			
+			MailDTO maildto= new MailDTO();
+			maildto.setSUBJECT("Important information about your IndoCoupon account");
+			maildto.setTO(previousMail);
+			maildto.setMESSAGE("<!DOCTYPE html>\r\n"
+					+ "<html lang=\"en\">\r\n"
+					+ "<head>\r\n"
+					+ "	<meta charset=\"UTF-8\">\r\n"
+					+ "	<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n"
+					+ "	<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n"
+					+ "	<title>IndoCoupon</title>\r\n"
+					+ "</head>\r\n"
+					+ "<style>\r\n"
+					+ ".button {\r\n"
+					+ "margin-left: 2%;\r\n"
+					+ "width: 5vw;\r\n"
+					+ "  background-color: white;  \r\n"
+					+ "  border-radius: 5px;\r\n"
+					+ "  color: black;\r\n"
+					+ "  padding: .5em;\r\n"
+					+ "  text-decoration: none;\r\n"
+					+ "}\r\n"
+					+ "\r\n"
+					+ ".button:focus,\r\n"
+					+ ".button:hover {\r\n"
+					+ "  background-color: #514a9b;\r\n"
+					+ "  color: White;\r\n"
+					+ "}\r\n"
+					+ "\r\n"
+					+ "</style>\r\n"
+					+ "<body>\r\n"
+					+ "	<div class=\"Main-card\" style=\"\r\n"
+					+ "		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);\r\n"
+					+ "		transition: 0.3s;\r\n"
+					+ "		width: 80%;\r\n"
+					+ "		height: 100%\"\r\n"
+					+ "	  >\r\n"
+					+ "	<div class=\"insideHead\" style=\"height: 26%; width: 100%; background-color: #514a9b\">\r\n"
+					+ "		<img src=\"\" alt=\"IndoCoupon logo\" style=\"height: 40%; width: 15%;  \"\r\n"
+					+ "		display: block\r\n"
+					+ "		margin-left: auto\r\n"
+					+ "		margin-right: auto\r\n"
+					+ "		padding: 4% >\r\n"
+					+ "		<h1></h1>\r\n"
+					+ "	</div>\r\n"
+					+ "	<h3 style=\"margin-left: 2%;\">Hello, "+previousName+"</h3>\r\n"
+					+ "	<h4 style=\"margin-left: 2%\">Hope you and your loved ones are doing good!!</h4>\r\n"
+					+ "\r\n"
+					+ "  <P style=\"margin-left: 2%\">We would like to inform you that there are a couple of Changes made in your account that are listed below.</P>\r\n"
+					+ "\r\n"
+					+ "	<ul>\r\n"
+					+ "		<li><a style=\"color: #514a9b; font-weight: bold\">"+previousName+"</a> is replaced with <a style=\"color: #514a9b; font-weight: bold\">"+updatedDetails.getFullName()+"</a></li>\r\n"
+					+ "		<li><a style=\"color: #514a9b; font-weight: bold\">"+previousMail+"</a> is replaced with <a style=\"color: #514a9b; font-weight: bold\">"+updatedDetails.getEmail()+"</a></li>\r\n"
+					+ "		<li><a style=\"color: #514a9b; font-weight: bold\">"+previousPhone+"</a> is replaced with <a style=\"color: #514a9b; font-weight: bold\">"+updatedDetails.getPhoneNumber()+"</a></li>\r\n"
+					+ "	</ul>\r\n"
+					+ "	  \r\n"
+					+ "	<h4 style=\"margin-left: 2%\">All the communication from now will be make with updated values.</h4>\r\n"
+					+ "	  \r\n"
+					+ "	<h4 style=\"margin-left: 2%\">If you have not requested these Changes. Please report it to us to secure your account</h4>\r\n"
+					+ "	<a href=\""+baseUrl+"/indoCoupon/v1/report/{1}\" type=\"button\" class=\"button\">Report</a>\r\n"
+					+ "	<hr>\r\n"
+					+ "	<h4 style=\"margin-left: 2%\">Best Regards,</h4>\r\n"
+					+ "	<h4 style=\"margin-left: 2%\">Savita Jaijaniya</h4>\r\n"
+					+ "	</div>\r\n"
+					+ "\r\n"
+					+ "</body>\r\n"
+					+ "</html>");
+			sendMail(maildto, errorList);			
+		}else {
+			
+		}		
+	} catch (Exception e) {
+		e.printStackTrace();
+		errorList.add("Something Went Wrong While sending the mail !");
+	}
+	
+}
 
 
 }
