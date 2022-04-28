@@ -18,6 +18,7 @@ public interface UserService {
 	public AppUsers getUserNameById(Integer userId,List<String> errorList);
 	public void deleteUser(AppUsers user,List<String> errorList);
 	public AppUsers validateUser(AppUsers user,List<String> errorList);
+	public AppUsers updateUser(AppUsers loggedInUser,Integer userId,List<String> errorList);
 	
 	
 }
