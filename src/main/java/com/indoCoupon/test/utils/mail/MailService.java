@@ -5,7 +5,7 @@ package com.indoCoupon.test.utils.mail;
 
 import java.util.List;
 
-import com.indoCoupon.test.modals.AppUsers;
+import com.indoCoupon.test.modals.Users;
 
 /**
  * @author shiva
@@ -18,7 +18,7 @@ public interface MailService {
 
 	public  void sendMail(MailDTO mailDto,List<String> errorList);
 	
-	public void WelcomeMail(AppUsers user , List<String> errorList );
-	public void updateMail(String previousName, String previousMail, String previousPhone , AppUsers updatedDetails , List<String> errorList );
+	public void WelcomeMail(Users user , List<String> errorList );
+	public void updateMail(String previousName, String previousMail, String previousPhone , Users updatedDetails , List<String> errorList );
 
 }

@@ -124,7 +124,7 @@ body {
 			  </div>
 			  <div class="col-md-12">
 			  <div class="input_div">
-			  <input type="text" class="inputTxt" id="userName" name="userName" required="required" placeholder="">
+			  <input type="text" class="inputTxt" onkeyup="checkUserName();" id="userName" name="userName" required="required" placeholder="">
 			  <label for="" class="inputlab">User Name</label>
 			  </div>
 			  </div>
@@ -203,6 +203,29 @@ function registerUser(){
 	});	
 }
 
+function checkUserName(){
+let userName = document.getElementById("userName").value;
+var obj = new MasterAjax();
+obj.requestType = "POST";
+obj.url = "indoCoupon/v1/validateUserName";
+obj.data = userName;
+obj.contentType = false;
+obj.processData = false;
+obj.dataType= "application/json";
+obj.requestData(function(responseData){
+	if(responseData.status == "OK" || responseData.status == "ok"){
+	}else{
+		swal({
+			  title: "OOPS !",
+			  text: "This user name is already in Try new or you can use: "+responseData.data,
+			  icon: "Danger",
+			  button: "OK",
+	});
+
+	}
+});	
+
+}
 
 </script>
 

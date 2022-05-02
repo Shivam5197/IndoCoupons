@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.indoCoupon.test.modals.AppUsers;
+import com.indoCoupon.test.modals.Users;
 import com.indoCoupon.test.repo.CouponRepo;
 import com.indoCoupon.test.repo.UserRepo;
 import com.indoCoupon.test.services.UserService;
@@ -45,10 +45,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	MailService mailService;
-	
+
 	@Override
-	public AppUsers saveUser(AppUsers user, List<String> errorList) {
-		AppUsers userToSave = null;	
+	public Users saveUser(Users user, List<String> errorList) {
+		Users userToSave = null;	
 		try {
 			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 			user.setRole(Constants.userRole.CUSTOMER);
@@ -63,20 +63,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public AppUsers getUserNameById(Integer userId, List<String> errorList) {
+	public Users getUserNameById(Integer userId, List<String> errorList) {
 
 		return null;
 	}
 
 	@Override
-	public void deleteUser(AppUsers user, List<String> errorList) {
+	public void deleteUser(Users user, List<String> errorList) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public AppUsers validateUser(AppUsers user, List<String> errorList) {
-		AppUsers loginUser = null;
+	public Users validateUser(Users user, List<String> errorList) {
+		Users loginUser = null;
 		try {
 			if(new Utils().isNotNull(user.getUserName()) && new Utils().isNotNull(user.getPassword()) ) {
 
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
 				if(new Utils().isNotNull(loginUser)) {
 					if(new BCryptPasswordEncoder().matches(user.getPassword(), loginUser.getPassword())) {
-//						log.info("Logged in Service Imple: " + loginUser);
+						//						log.info("Logged in Service Imple: " + loginUser);
 						return loginUser;
 					}else {
 						errorList.add("Incorrect Password !! ");
@@ -99,16 +99,16 @@ public class UserServiceImpl implements UserService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-//			errorList.add("Something Went Wrong|| Please make sure to use Correct Username and Password !");
+			//			errorList.add("Something Went Wrong|| Please make sure to use Correct Username and Password !");
 		}
-//		log.info("Logged in Service Imple: " + loginUser);
+		//		log.info("Logged in Service Imple: " + loginUser);
 		return loginUser;
 	}
 
 	@Override
-	public AppUsers updateUser(AppUsers loggedInUser, Integer userId, List<String> errorList) {
-		AppUsers updateUser = new AppUsers();
-//		log.info("Logged in user in ServiceImpl: " + loggedInUser);
+	public Users updateUser(Users loggedInUser, Integer userId, List<String> errorList) {
+		Users updateUser = new Users();
+		//		log.info("Logged in user in ServiceImpl: " + loggedInUser);
 		try {
 			if(new Utils().isNotNull(userId)) {
 				updateUser = userRepo.findByUserId(userId);
@@ -134,6 +134,28 @@ public class UserServiceImpl implements UserService {
 			errorList.add("Something went Wrong !!");
 		}
 		return updateUser;
+	}
+
+	@Override
+	public Boolean userNameExits(String userName, List<String> errorList) {
+		Users user = new Users();
+		try {
+			if(new Utils().isNotNull(userName)) {
+				user = userRepo.findByUserName(userName);				
+			}
+			if(new Utils().isNotNull(user)) {
+				if(user.getUserName().equals(userName)) {
+					return true;	
+				}else {
+					return false;
+				}
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

@@ -5,6 +5,7 @@ package com.indoCoupon.test.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,12 +17,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.indoCoupon.test.modals.AppUsers;
+import com.indoCoupon.test.modals.Users;
 import com.indoCoupon.test.services.UserService;
 import com.indoCoupon.test.utils.APIResponseModal;
 import com.indoCoupon.test.utils.Constants;
@@ -66,7 +68,7 @@ public class MainController {
 	public APIResponseModal checkUser(HttpSession session) {
 		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
 		try {
-			AppUsers loginUser = (AppUsers) session.getAttribute("loggedInUser");		
+			Users loginUser = (Users) session.getAttribute("loggedInUser");		
 
 			if(loginUser !=null) {
 				apiResponseModal.setData(loginUser.toString());
@@ -84,9 +86,9 @@ public class MainController {
 		return apiResponseModal;
 	}
 	
-	@RequestMapping(value = "/account_settings")
+	@RequestMapping(value = "/customer_account_settings")
 	public String getAccountDetails(HttpSession session) {
-		AppUsers user = (AppUsers) session.getAttribute("loggedInUser");
+		Users user = (Users) session.getAttribute("loggedInUser");
 		if(new Utils().isNotNull(user)) {
 			return "settings";
 		}else {
@@ -96,7 +98,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/adminDashboard")
 	public String admin(HttpSession session) {
-		AppUsers admin = (AppUsers) session.getAttribute("loggedInUser");
+		Users admin = (Users) session.getAttribute("loggedInUser");
 		if(new Utils().isNotNull(admin) &&admin.getRole() == Constants.userRole.ADMIN) {
 			return adminPage;
 		}
@@ -114,11 +116,11 @@ public class MainController {
 
 	@ResponseBody
 	@RequestMapping(value = "/validateUser",method = RequestMethod.POST)
-	public APIResponseModal validateUser(@ModelAttribute AppUsers user,HttpSession session) {
+	public APIResponseModal validateUser(@ModelAttribute Users user,HttpSession session) {
 		logger.info("Inside Main Controller: "+ user);
 		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
 		List<String> errorList = new ArrayList<>();
-		AppUsers loggedInUser = null;
+		Users loggedInUser = null;
 		try {
 			if(user.getUserName()!= null & user.getPassword() !=null) {
 				loggedInUser = userService.validateUser(user, errorList);
@@ -147,7 +149,7 @@ public class MainController {
 
 	@ResponseBody
 	@RequestMapping(value = "/saveUser",method = RequestMethod.POST)
-	public APIResponseModal saveUser(@ModelAttribute AppUsers user,HttpSession session) throws Exception {
+	public APIResponseModal saveUser(@ModelAttribute Users user,HttpSession session) throws Exception {
 		logger.info("Inside Main Controller: "+ user);
 		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
 		List<String> errorList = new ArrayList<>();
@@ -182,7 +184,7 @@ public class MainController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/updateDetails/{id}",method = {RequestMethod.POST,RequestMethod.GET})
-	public APIResponseModal updateUserProfile(@ModelAttribute AppUsers user,@PathVariable("id") Integer customerId,
+	public APIResponseModal updateUserProfile(@ModelAttribute Users user,@PathVariable("id") Integer customerId,
 			HttpSession session) {
 		List<String> errorList = new ArrayList<>();
 		APIResponseModal apiResponseModal =  new Utils().getDefaultApiResponse();
@@ -191,7 +193,7 @@ public class MainController {
 		try {
 			if(new Utils().isNotNull(customerId) || new Utils().isNotNull(session)) {
 				if(new Utils().isNotNull(user.getEmail()) && new Utils().isNotNull(user.getFullName()) && new Utils().isNotNull(user.getPhoneNumber())) {
-					AppUsers updatedUser =	userService.updateUser(user,customerId,errorList);		
+					Users updatedUser =	userService.updateUser(user,customerId,errorList);		
 
 					if(errorList.isEmpty()) {
 						apiResponseModal.setData(updatedUser.toString());
@@ -232,11 +234,49 @@ public class MainController {
 		return homePage;
 	}
 	
-	@RequestMapping(value = "report/{1}")
-	public String reportMethod(@PathVariable Integer reportType) {
-		
-		return "";
+//	@RequestMapping(value = "report/{1}")
+//	public String reportMethod(@PathVariable Integer reportType) {
+//		
+//		return "";
+//		}
+	
+	@ResponseBody
+	@RequestMapping(value="/validateUserName",method = RequestMethod.POST)
+	public APIResponseModal checkPhonePresent(@RequestBody String userName) {
+		List<String> errorList = new ArrayList<String>();
+		APIResponseModal apiResponse = new Utils().getDefaultApiResponse();
+		try {
+			if(new Utils().isNotNull(userName)) {
+
+				Boolean isExists = userService.userNameExits(userName, errorList);
+				if(isExists) {
+					apiResponse.setMessage("User name already exist please Choose another Username !");
+					apiResponse.setStatus(HttpStatus.BAD_REQUEST);
+					apiResponse.setData(getSaltString());
+				}else {
+					apiResponse.setMessage("Username not found");
+					apiResponse.setStatus(HttpStatus.OK);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			apiResponse.setMessage("Username not found");
+			apiResponse.setStatus(HttpStatus.OK);
 		}
+		return apiResponse;
+	}
+
+	protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 9) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+    }
 	
 	
-}
+}	

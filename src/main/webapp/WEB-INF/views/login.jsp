@@ -175,8 +175,8 @@ body {
 							});
 
 							sleep(5000);
-							console.log("User role from backend : " + user.role)
-							console.log("User role from frondEnd : " + _const_userRoles.slt_admin)
+//							console.log("User role from backend : " + user.role)
+//							console.log("User role from frondEnd : " + _const_userRoles.slt_admin)
  							if (user.role == _const_userRoles.slt_admin) {
 								window.location = '/indoCoupon/v1/adminDashboard';
 							} else {
