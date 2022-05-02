@@ -5,7 +5,7 @@ package com.indoCoupon.test.services;
 
 import java.util.List;
 
-import com.indoCoupon.test.modals.AppUsers;
+import com.indoCoupon.test.modals.Users;
 
 /**
  * @author shiva
@@ -14,11 +14,11 @@ import com.indoCoupon.test.modals.AppUsers;
  */
 public interface UserService {
 
-	public AppUsers saveUser(AppUsers user,List<String> errorList);
-	public AppUsers getUserNameById(Integer userId,List<String> errorList);
-	public void deleteUser(AppUsers user,List<String> errorList);
-	public AppUsers validateUser(AppUsers user,List<String> errorList);
-	public AppUsers updateUser(AppUsers loggedInUser,Integer userId,List<String> errorList);
-	
+	public Users saveUser(Users user,List<String> errorList);
+	public Users getUserNameById(Integer userId,List<String> errorList);
+	public void deleteUser(Users user,List<String> errorList);
+	public Users validateUser(Users user,List<String> errorList);
+	public Users updateUser(Users loggedInUser,Integer userId,List<String> errorList);
+	public Boolean userNameExits(String userName, List<String> errorList);
 	
 }

@@ -21,7 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.indoCoupon.test.modals.AppUsers;
+import com.indoCoupon.test.modals.Users;
 import com.indoCoupon.test.utils.Utils;
 
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +50,8 @@ public class MailServiceImpl implements MailService {
 		log.info("-----------------------------Mail Sent Initiated--------------------------------------");
 
 		try {
-			log.info("Mail DTO --------- "+mailDto);
-			log.info("errorList --------- "+errorList);
+//			log.info("Mail DTO --------- "+mailDto);
+//			log.info("errorList --------- "+errorList);
 			mailDto.setFROM("indocoupon.noreply@gmail.com");
 			mailDto.setPASSWORD("indoCoupon@2597");
 			
@@ -94,7 +94,7 @@ public class MailServiceImpl implements MailService {
 	}
 
 	@Override
-	public void WelcomeMail(AppUsers user , List<String> errorList ) {
+	public void WelcomeMail(Users user , List<String> errorList ) {
 
 		try {
 			if(new Utils().isNotNull(user)){
@@ -130,6 +130,7 @@ public class MailServiceImpl implements MailService {
 						+ "	</div>\r\n"
 						+ "\r\n"
 						+ "	<h3 style=\"margin-left: 2%;\">Hello, " +user.getFullName()+"</h3>\r\n"
+						+ "	<h3 style=\"margin-left: 2%;\">Your username is, " +user.getUserName()+". Please save it for login into the application.</h3>\r\n"
 						+ "	<h4 style=\"margin-left: 2%;\">My name is Savita and I am the Managing Director of IndoCoupon! I am so glad to have you on board! </h4>\r\n"
 						+ "\r\n"
 						+ "  <P style=\"margin-left: 2%;\">Do not know where to begin? Here are some easy steps you can follow to get started with IndoCoupon.</P>\r\n"
@@ -172,7 +173,7 @@ public class MailServiceImpl implements MailService {
 	}
 
 @Override
-	public void updateMail(String previousName, String previousMail, String previousPhone, AppUsers updatedDetails, List<String> errorList) {
+	public void updateMail(String previousName, String previousMail, String previousPhone, Users updatedDetails, List<String> errorList) {
 
 	final String baseUrl = 
 			ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();	
