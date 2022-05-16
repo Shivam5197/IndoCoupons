@@ -21,6 +21,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.indoCoupon.test.modals.CouponsModal;
 import com.indoCoupon.test.modals.Users;
 import com.indoCoupon.test.utils.Utils;
 
@@ -256,6 +257,122 @@ public class MailServiceImpl implements MailService {
 	}
 	
 }
+
+@Override
+	public void updateAdminForUPIPayment(Users user, CouponsModal coupons, List<String> errorList) {
+	final String baseUrl = 
+			ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();	
+
+	try {
+		if(new Utils().isNotNull(user) && new Utils().isNotNull(coupons)){
+
+			MailDTO maildto= new MailDTO();
+			maildto.setSUBJECT("Coupon Requested !");
+			maildto.setTO("indocoupon.noreply@gmail.com");
+			maildto.setMESSAGE("<!DOCTYPE html>\r\n"
+					+ "<html>\r\n"
+					+ "<head>\r\n"
+					+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
+					+ "<style>\r\n"
+					+ "* {\r\n"
+					+ "  box-sizing: border-box;\r\n"
+					+ "}\r\n"
+					+ "\r\n"
+					+ "/* Create two equal columns that floats next to each other */\r\n"
+					+ ".column {\r\n"
+					+ "  float: left;\r\n"
+					+ "  width: 50%;\r\n"
+					+ "  padding: 10px;\r\n"
+					+ "}\r\n"
+					+ "\r\n"
+					+ "/* Clear floats after the columns */\r\n"
+					+ ".row:after {\r\n"
+					+ "  content: \"\";\r\n"
+					+ "  display: table;\r\n"
+					+ "  clear: both;\r\n"
+					+ "}\r\n"
+					+ ".button {\r\n"
+					+ "					margin-left: 42%;\r\n"
+					+ "					background-color: white;\r\n"
+					+ "					border-radius: 5px;\r\n"
+					+ "					color: black;\r\n"
+					+ "					padding: .5em;\r\n"
+					+ "					 text-decoration: none;\r\n"
+					+ "					}\r\n"
+					+ ".button:focus,\r\n"
+					+ "					.button:hover {\r\n"
+					+ "					background-color: #514a9b;\r\n"
+					+ "					color: White;\r\n"
+					+ "					}          \r\n"
+					+ "</style>\r\n"
+					+ "</head>\r\n"
+					+ "<body>\r\n"
+					+ "\r\n"
+					+ "  <div class=Main-card style=\"\r\n"
+					+ "  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);\r\n"
+					+ "  transition: 0.3s;\r\n"
+					+ "  width: 80%;\r\n"
+					+ "  height: 100%;\r\n"
+					+ "  \">\r\n"
+					+ "<div class=insideHead style=\"height: 26%; width: 100%; background-color: #514a9b;\">\r\n"
+					+ "  <img src=resources/static/images/logo.jpg alt=IndoCoupon logo style=\"height: 40%; width: 15%;\r\n"
+					+ "  display: block;\r\n"
+					+ "  margin-left: auto;\r\n"
+					+ "  margin-right: auto;\r\n"
+					+ "  padding: 4% \">\r\n"
+					+ "  <h1></h1>\r\n"
+					+ "</div>\r\n"
+					+ "\r\n"
+					+ "<h3 style=\"margin-left: 2%;\">Hello, Admin</h3>\r\n"
+					+ "<h3 style=\"margin-left: 2%;\">We got a new Coupon Request From "+user.getFullName()+"</h3>\r\n"
+					+ "\r\n"
+					+ "<div class=\"row\">\r\n"
+					+ "  <div class=\"column\">\r\n"
+					+ "    <h2 style=\"text-align: center; color: 514a9b;\">User Details: </h2>\r\n"
+					+ "    <ul>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">User Name: "+user.getUserName()+"</p></li>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">User Email: "+user.getEmail()+"</p></li>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">User Phone: "+user.getPhoneNumber()+"</p></li>\r\n"
+					+ "    </ul>\r\n"
+					+ "  \r\n"
+					+ "  </div>\r\n"
+					+ "  <div class=\"column\">\r\n"
+					+ "    <h2 style=\"text-align: center; color: 514a9b;\">Coupon Details </h2>\r\n"
+					+ "    <ul>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">Coupon Code: "+coupons.getCouponCode()+"</p></li>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">Coupon Key: "+coupons.getCouponKey()+"</p></li>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">Coupon Value: "+coupons.getCouponKeyValue()+"</p></li>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">Coupon Expiry Date: "+coupons.getCouponExpiryDate()+"</p></li>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">Coupon Value: "+coupons.getCouponValue()+"</p></li>\r\n"
+					+ "      <li><p style=\"font-weight: bold;\">Coupon Price: "+coupons.getCouponPrice()+" (Amount you have recived !)</p></li>\r\n"
+					+ "    </ul>\r\n"
+					+ "  </div>\r\n"
+					+ "</div>\r\n"
+					+ "<a href=\""+baseUrl+"/indoCoupon/v1/provideCoupon/"+user.getUserId()+"/"+coupons.getCouponId()+"\" type=\"button\" class=\"button\">Payment Recived</a>\r\n"
+					+ "\r\n"
+					+ "<h3 style=\"margin-left: 2%;\">Best Regards,</h3>\r\n"
+					+ "\r\n"
+					+ "</body>\r\n"
+					+ "</html>\r\n"
+					+ "");
+			
+			sendMail(maildto, errorList);
+		}else {
+			errorList.add("User not Found !!");
+			throw new UsernameNotFoundException("User not found");
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+
+	
+	
+
+}
+
+		
 
 
 }

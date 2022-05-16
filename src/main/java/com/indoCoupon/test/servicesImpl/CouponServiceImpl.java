@@ -106,4 +106,20 @@ public class CouponServiceImpl implements CouponService {
 		return couponObj;
 	}
 
+	
+	@Override
+	public List<CouponsModal> getCouponByBrand(Integer brand, List<String> errorList) {
+		List<CouponsModal> couponsByBrand = new ArrayList<>();
+		try {
+			if(new Utils().isNotNull(brand)) {
+				couponsByBrand= couponRepo.findByBrandEquals(brand);
+			}else {
+				errorList.add("Brand not found in the library");
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorList.add("Something went Wrong");
+		}	
+		return couponsByBrand;
+	}
 }

@@ -42,6 +42,10 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
 
 
+<link type="text/css" href="<s:url value="/CSS/inputField.css"/>"
+	rel="stylesheet">
+
+
 <!-- Internal JS files -->
 <script type="text/javascript" charset="utf8"
 	src="<c:url value="/JS/UtilsJs/MasterAjax.js"/>"></script>
@@ -49,6 +53,8 @@
 	src="<c:url value="/JS/UtilsJs/utils.js"/>"></script>
 <script type="text/javascript" charset="utf8"
 	src="<c:url value="/JS/indexJs.js"/>"></script>
+<script type="text/javascript" charset="utf8"
+	src="<c:url value="/JS/payment.js"/>"></script>
 
 <!-- Internal JS files -->
 
@@ -64,6 +70,21 @@
 .text-center{
 	text-align: center;
 }
+
+.cImg{
+  float: right;
+    width: 100%;
+    height: 23vh;
+    background-size: cover;
+}
+
+.card-img-pos{
+  width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+}
+
 
 </style>
 
@@ -93,50 +114,87 @@
 	  </div>
 
 
-	  <div class="title text-center" style="margin-top: 2vh;">
-		  <h1 style="font-family: serif; color: #0a0a4b;"> You Shop You Save We Give </h1>
-	  </div>
+<div class="row title text-center" style="margin-top: 2vh;">
+  <div class="col-md-3"></div>
+  <div class="col-md-7">
+  <h1 style="font-family: serif; color: #0a0a4b;"> You Shop You Save We Give </h1>
+</div>
+<div class="col-md-2">
 
-	  <div  class="container card shadow" style="margin-top: 5vh;">
-		<h2 class="text-center" style="color: #0a0a4b;"> Trending Coupons </h2>
+<div class="input_div">
+  <select class="form-select" id="searchBrandDropDown" onchange="searchByBrand();" name="searchBrandDropDown" aria-label="Default select example">
+  	<option selected>Search by Brand</option>
+                   <option value= "${AMAZON}" >Amazon</option>
+                   <option value= "${Amnesty_International}" >Amnesty International</option>
+                   <option value= "${Big_Bazar}" >Big Bazar</option>
+                   <option value= "${Eco_Matcher}" >Eco Matcher</option>
+                   <option value= "${Flipkart}" >Flipkart</option>
+                   <option value= "${Mastercard}" >Mastercard</option>
+                   <option value= "${Myntra}" >Myntra</option>
+                   <option value= "${Pantaloons}" >Pantaloons</option>
+                   <option value= "${Paypal}" >Paypal</option>
+                   <option value= "${Shoppers_Stop}" >Shoppers Stop</option>
+                   <option value= "${UNICEF}" >UNICEF</option>
+                   <option value= "${WWF}" >WWF</option>
+		</select>
+		</div>
+  </div>
+</div>
 
-		<table class="table mt-3">
-			<tbody>
-			  <tr>
-				<th scope="row">Amazon</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
-			  </tr>
-			  <tr>
-				<th scope="row">Flipkart</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
-			  </tr>
-			  <tr>
-				<th scope="row">Nyka</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" value="Get Pin"></td>
-			  </tr>
-			  <tr>
-				<th scope="row">Walmart</th>
-				<td class="text-center">789456123455645</td>
-				<td>500Rs</td>
-				<td><input type="button" class="btn btn-primary" onclick="check()" value="Get Pin"></td>
-			  </tr>
+	  <div  class="container card shadow" style="margin-top: 5vh;background-color: #e2dada;">
 
-			</tbody>
-		  </table>
-
-
+		<div class="row coupon-Cards">
+		</div>
 
 	  </div>
 
+<script>
+
+/* $('select[name="searchBrandDropDown"]').change(function(){
+	var brand = $(this).val();  
+	console.log(brand)
+	var ajaxObject = new MasterAjax();
+	ajaxObject.requestType = "POST";
+	ajaxObject.url = "coupon/listbyBrand/"+brand+";
+	ajaxObject.contentType = false;
+	ajaxObject.enctype = false;
+	ajaxObject.requestData(function(responseData) {
+		if (responseData.status == "OK" || responseData.status == "ok" ) {
+		let brandCoupons = JSON.parse(responseData.data);	
+		console.log(brandCoupons);
+		} else {
+			console.log(responseData);
+//			checkUser(null);
+		}
+	});
 
 
+});
+ */
+ 
+ function searchByBrand(){
+	 let value = $("#searchBrandDropDown").val();
+		var ajaxObject = new MasterAjax();
+		ajaxObject.requestType = "GET";
+		ajaxObject.url = "coupon/listbyBrand/"+value+"";
+		ajaxObject.contentType = false;
+		ajaxObject.enctype = false;
+		ajaxObject.requestData(function(responseData) {
+			if (responseData.status == "OK" || responseData.status == "ok" ) {
+			let brandCoupons = JSON.parse(responseData.data);	
+			console.log(brandCoupons);
+			homecardsbrandWise(brandCoupons);
+			} else {
+				console.log(responseData);
+				homecardsbrandWise(null);
+			}
+		});
+ }
+ 
+ 
+</script>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script
