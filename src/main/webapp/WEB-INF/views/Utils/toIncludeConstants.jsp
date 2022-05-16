@@ -11,17 +11,22 @@
 <meta charset="ISO-8859-1">
 <body>
 
-<%-- <%@page  import="com.Indoera.ecomProject.Utils.Constants.storeStatus" %>
-<%@page  import="com.Indoera.ecomProject.Utils.Constants.userStatus" %>
-<%@page  import="com.Indoera.ecomProject.Utils.Constants.userRole" %>
-<%@page  import="com.Indoera.ecomProject.Utils.Constants.Gender" %>
+<%@page  import="com.indoCoupon.test.utils.Constants.BrandsList" %>
 
 
-<c:set var="openStore" value="<%= storeStatus.OPEN%>" scope="page" />
-<c:set var="closedStore" value="<%= storeStatus.CLOSED%>" scope="page" />
-<c:set var="onHoldStore" value="<%= storeStatus.ONHOLD%>" scope="page" />
-<c:set var="reopenSoonStore" value="<%= storeStatus.REOPENINGSOON%>" scope="page" />
- --%>
+<c:set var="AMAZON" value="<%= BrandsList.AMAZON%>" scope="page" />
+<c:set var="Amnesty_International" value="<%= BrandsList.Amnesty_International%>" scope="page" />
+<c:set var="Big_Bazar" value="<%= BrandsList.Big_Bazar%>" scope="page" />
+<c:set var="Eco_Matcher" value="<%= BrandsList.Eco_Matcher%>" scope="page" />
+<c:set var="Flipkart" value="<%= BrandsList.Flipkart%>" scope="page" />
+<c:set var="Mastercard" value="<%= BrandsList.Mastercard%>" scope="page" />
+<c:set var="Myntra" value="<%= BrandsList.Myntra%>" scope="page" />
+<c:set var="Pantaloons" value="<%= BrandsList.Pantaloons%>" scope="page" />
+<c:set var="Paypal" value="<%= BrandsList.Paypal%>" scope="page" />
+<c:set var="Shoppers_Stop" value="<%= BrandsList.Shoppers_Stop%>" scope="page" />
+<c:set var="UNICEF" value="<%= BrandsList.UNICEF%>" scope="page" />
+<c:set var="WWF" value="<%= BrandsList.WWF%>" scope="page" />
+ 
  
 <%@page  import="com.indoCoupon.test.utils.Constants.userRole" %>
 <%@page  import="com.indoCoupon.test.utils.Constants.couponStatus" %>

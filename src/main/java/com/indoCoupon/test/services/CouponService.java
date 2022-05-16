@@ -21,5 +21,6 @@ public interface CouponService {
 	public void deleteCoupon(Integer couponId);
 	public List<CouponsModal> getAllCoupons(List<String> errorList);
 	public CouponsModal getCouponByID(Integer couponId,List<String> errorList);
+	public List<CouponsModal> getCouponByBrand(Integer brand,List<String> errorList);
 	
 }

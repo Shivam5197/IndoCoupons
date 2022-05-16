@@ -48,7 +48,9 @@ public class MainController {
 	public static final String homePage = "index";
 	public static final String loginPage = "login";
 	public static final String adminPage = "admin";
-		
+	public static final String paymentPage = "payment";
+
+	
 	@Autowired
 	UserService userService;
 
@@ -61,6 +63,44 @@ public class MainController {
 	public String loginPage() {
 		return loginPage;
 	}
+	
+	@RequestMapping(value = "/payments")
+	public String payment(HttpSession session) {
+		Users user = (Users) session.getAttribute("loggedInUser");
+		if(new Utils().isNotNull(user)) {
+			return paymentPage;
+		}else {
+			return loginPage;
+		}	
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/paymentPage",method = {RequestMethod.POST})
+	public APIResponseModal paymentPagecheckUser (HttpSession session) {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
+		try {
+			Users loginUser = (Users) session.getAttribute("loggedInUser");		
+
+			if(loginUser !=null) {
+				apiResponseModal.setData(loginUser.toString());
+				apiResponseModal.setStatus(HttpStatus.OK);
+				apiResponseModal.setMessage("User Logged In");
+			}else {
+				apiResponseModal.setData(null);
+				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+				apiResponseModal.setMessage("No user logged in!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+			apiResponseModal.setMessage("No user logged in!");
+		}
+//		log.info("Api Response CheckUSer: " + apiResponseModal);
+		return apiResponseModal;
+	}
+
+	
 	
 	
 	@ResponseBody
@@ -77,6 +117,29 @@ public class MainController {
 			}else {
 				apiResponseModal.setData(null);
 				apiResponseModal.setStatus(HttpStatus.OK);
+				apiResponseModal.setMessage("No user logged in!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+//		log.info("Api Response CheckUSer: " + apiResponseModal);
+		return apiResponseModal;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/checkLoginUser",method = {RequestMethod.POST,RequestMethod.GET})
+	public APIResponseModal checkLoginUser(HttpSession session) {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
+		try {
+			Users loginUser = (Users) session.getAttribute("loggedInUser");		
+
+			if(loginUser !=null) {
+				apiResponseModal.setData(loginUser.toString());
+				apiResponseModal.setStatus(HttpStatus.OK);
+				apiResponseModal.setMessage("User already Logged in");
+			}else {
+				apiResponseModal.setData(null);
+				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
 				apiResponseModal.setMessage("No user logged in!");
 			}
 		} catch (Exception e) {
@@ -242,7 +305,7 @@ public class MainController {
 	
 	@ResponseBody
 	@RequestMapping(value="/validateUserName",method = RequestMethod.POST)
-	public APIResponseModal checkPhonePresent(@RequestBody String userName) {
+	public APIResponseModal checkuserNamePresent(@RequestBody String userName) {
 		List<String> errorList = new ArrayList<String>();
 		APIResponseModal apiResponse = new Utils().getDefaultApiResponse();
 		try {

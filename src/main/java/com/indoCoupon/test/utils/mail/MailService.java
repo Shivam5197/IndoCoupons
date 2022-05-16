@@ -5,6 +5,7 @@ package com.indoCoupon.test.utils.mail;
 
 import java.util.List;
 
+import com.indoCoupon.test.modals.CouponsModal;
 import com.indoCoupon.test.modals.Users;
 
 /**
@@ -20,5 +21,6 @@ public interface MailService {
 	
 	public void WelcomeMail(Users user , List<String> errorList );
 	public void updateMail(String previousName, String previousMail, String previousPhone , Users updatedDetails , List<String> errorList );
+	public void updateAdminForUPIPayment(Users user, CouponsModal coupons, List<String> errorList);
 
 }

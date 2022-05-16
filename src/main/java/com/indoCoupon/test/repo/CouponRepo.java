@@ -4,6 +4,7 @@
 package com.indoCoupon.test.repo;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,5 +24,7 @@ public interface CouponRepo extends JpaRepository<CouponsModal, Integer> {
 	
 	@Query("SELECT c FROM CouponsModal c WHERE c.couponStatus = "+Constants.couponStatus.ACTIVE+"")
 	Collection<CouponsModal> findAllActiveCoupons(Sort sort); 
+
+	List<CouponsModal> findByBrandEquals(Integer brand); 
 	
 }
