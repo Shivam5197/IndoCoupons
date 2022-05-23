@@ -91,7 +91,6 @@ public class CouponController {
 				apiResponseModal.setStatus(HttpStatus.OK);
 			}		
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return apiResponseModal;

@@ -365,14 +365,71 @@ public class MailServiceImpl implements MailService {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-
-
-	
-	
-
 }
 
-		
+	@Override
+	public void sendCouponToUser(Users user , CouponsModal coupons, List<String> errorList) {
+		try {
+
+			if(new Utils().isNotNull(user) &&new Utils().isNotNull(coupons) ) {
+				String mailTemplet = "<!DOCTYPE html>\r\n"
+						+ "<html>\r\n"
+						+ "<head>\r\n"
+						+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
+						+ "<style>\r\n"
+						+ "* {\r\n"
+						+ "  box-sizing: border-box;\r\n"
+						+ "}\r\n"
+						+ "</style>\r\n"
+						+ "</head>\r\n"
+						+ "<body>\r\n"
+						+ "  <div class=Main-card style=\"\r\n"
+						+ "  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);\r\n"
+						+ "  transition: 0.3s;\r\n"
+						+ "  width: 80%;\r\n"
+						+ "  height: 100%;\r\n"
+						+ "  \">\r\n"
+						+ "<div class=insideHead style=\"height: 26%; width: 100%; background-color: #514a9b;\">\r\n"
+						+ "  <img src=resources/static/images/logo.jpg alt=IndoCoupon logo style=\"height: 40%; width: 15%;\r\n"
+						+ "  display: block;\r\n"
+						+ "  margin-left: auto;\r\n"
+						+ "  margin-right: auto;\r\n"
+						+ "  padding: 4% \">\r\n"
+						+ "  <h1></h1>\r\n"
+						+ "</div>\r\n"
+						+ "<p style=\"margin-left: 2%;\">Hello, User</p>\r\n"
+						+ "<p style=\"margin-left: 2%;\">Here are the Coupon Details you Requested For</p>\r\n"
+						+ "<hr>\r\n"
+						+ "<ul>\r\n"
+						+ "  <li>Coupon Code: "+coupons.getCouponCode()+"</li>\r\n"
+						+ "  <li>Expiry Date: "+coupons.getCouponExpiryDate()+"</li>\r\n";
+						if(coupons.getCouponKey() != null || coupons.getCouponKey() !="") {
+							mailTemplet +="  <li>"+coupons.getCouponKey()+": "+coupons.getCouponKeyValue()+"</li>\r\n";
+						}
+						mailTemplet +="  <li>Coupon Value: "+coupons.getCouponValue()+"</li>\r\n"
+						+ "</ul>\r\n"
+						+ "<h4 style=\"margin-left: 2%;\">Thank You So much For buying Coupon, Happy Shopping</h4>\r\n"
+						+ "<h4 style=\"margin-left: 2%;\">Best Regards,</h4>\r\n"
+						+ "<h4 style=\"margin-left: 2%;\">IndoCoupon Team</h4>\r\n"
+						+ "</body>\r\n"
+						+ "</html>\r\n"
+						+ "";
+				
+				
+				MailDTO maildto= new MailDTO();
+				maildto.setSUBJECT("Coupon Notification");
+				maildto.setTO(user.getEmail());
+				maildto.setMESSAGE(mailTemplet);
+				sendMail(maildto, errorList);
+			}else {
+				errorList.add("User not Found !!");
+				throw new UsernameNotFoundException("User not found");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 
 }

@@ -78,5 +78,5 @@ public class Users {
 				+(addedAt != null ? ",\"addedAt\":\"" + addedAt + "\" " : "")
 				+ "}\t";
 	}
-
+	
 }

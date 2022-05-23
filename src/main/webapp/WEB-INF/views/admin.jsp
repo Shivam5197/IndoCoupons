@@ -136,7 +136,7 @@
 			<div class="col-md-8">
 				<nav class="nav nav-pills nav-justified mt-4" id="myTab">
 					<a class="nav-link active" aria-current="page" href="#">Dashboard</a> 
-					<a class="nav-link" href="#">Manage Customers</a> 
+					<a class="nav-link" onclick="manageCustomers();" href="#">Manage Customers</a> 
 					<a class="nav-link" onclick="manageCoupons();" href="#">Manage Coupons</a> 
 					<a class="nav-link" href="#" onclick="couponsSold();" tabindex="-1" aria-disabled="true">Coupons Sold</a>
 				</nav>

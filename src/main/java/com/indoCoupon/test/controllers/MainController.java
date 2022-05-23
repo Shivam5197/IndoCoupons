@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.indoCoupon.test.modals.CouponsModal;
 import com.indoCoupon.test.modals.Users;
+import com.indoCoupon.test.services.CouponService;
 import com.indoCoupon.test.services.UserService;
 import com.indoCoupon.test.utils.APIResponseModal;
 import com.indoCoupon.test.utils.Constants;
@@ -54,6 +56,9 @@ public class MainController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	CouponService couponService;
+	
 	@RequestMapping(value = "/home")
 	public String homePage() {
 		return homePage;
@@ -73,7 +78,6 @@ public class MainController {
 			return loginPage;
 		}	
 	}
-	
 	
 	@ResponseBody
 	@RequestMapping(value = "/paymentPage",method = {RequestMethod.POST})
@@ -99,9 +103,6 @@ public class MainController {
 //		log.info("Api Response CheckUSer: " + apiResponseModal);
 		return apiResponseModal;
 	}
-
-	
-	
 	
 	@ResponseBody
 	@RequestMapping(value = "/checkUser",method = {RequestMethod.POST,RequestMethod.GET})
@@ -176,7 +177,6 @@ public class MainController {
 		return "register";
 	}
 
-
 	@ResponseBody
 	@RequestMapping(value = "/validateUser",method = RequestMethod.POST)
 	public APIResponseModal validateUser(@ModelAttribute Users user,HttpSession session) {
@@ -244,7 +244,6 @@ public class MainController {
 		return apiResponseModal;
 	}
 	
-	
 	@ResponseBody
 	@RequestMapping(value = "/updateDetails/{id}",method = {RequestMethod.POST,RequestMethod.GET})
 	public APIResponseModal updateUserProfile(@ModelAttribute Users user,@PathVariable("id") Integer customerId,
@@ -281,6 +280,55 @@ public class MainController {
 			apiResponseModal.setMessage("Something Went Wrong !! Please try again aftersome time!!");
 		}
 		return apiResponseModal;		
+	}
+		
+	@RequestMapping(value = "/provideCoupon/{userId}/{couponId}" , method = RequestMethod.POST)
+	public String assignCouponToUser(@PathVariable("userId") Integer userId,@PathVariable("couponId") Integer couponId) {
+		String succesPage = "success";
+		String failPage = "failed";
+		List<String> errorList = new ArrayList<String>();
+		if(new Utils().isNotNull(userId)) {
+			if(new Utils().isNotNull(couponId)) {
+				userService.assignCouponToUser(userId, couponId, errorList);
+			}else {
+				return failPage;
+			}
+		}else {
+			return failPage;
+		}
+		if(errorList.isEmpty())
+			return succesPage;
+		
+		return failPage;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteUser/{id}", method = RequestMethod.POST)
+	public APIResponseModal deleteUser(@PathVariable("id") Integer userId) {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
+		List<String> errorList = new ArrayList<>();
+
+		try {
+			if(new Utils().isNotNull(userId)) {
+				userService.deleteUser(userId, errorList);
+				if(errorList.isEmpty()) {
+					apiResponseModal.setStatus(HttpStatus.OK);
+					apiResponseModal.setData("");
+					apiResponseModal.setMessage("Deleted Successfully !!");
+				}
+			}else {
+				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+				apiResponseModal.setData("");
+				apiResponseModal.setMessage(errorList.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+			apiResponseModal.setData(null);
+			apiResponseModal.setMessage("Something went Wrong please try again");
+		}
+
+return apiResponseModal;
 	}
 	
 	@RequestMapping(value = "/logout",method = {RequestMethod.POST,RequestMethod.GET})
@@ -341,5 +389,58 @@ public class MainController {
         return saltStr;
     }
 	
+	@ResponseBody
+	@RequestMapping(value = "/userCoupons", method = RequestMethod.POST)
+	public APIResponseModal getListUserCoupons (HttpSession session) {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
+		List<String> errorList = new ArrayList<>();
+		List<CouponsModal> userCoupons = new ArrayList<CouponsModal>();
+		Users user = (Users) session.getAttribute("loggedInUser");		
+
+		try {
+			if(new Utils().isNotNull(user)) {
+				log.info("User Id in Controller :"+user);
+				userCoupons = couponService.getCouponsByUser(user, errorList);
+				if(errorList.isEmpty()) {
+					apiResponseModal.setStatus(HttpStatus.OK);
+					apiResponseModal.setData(userCoupons.toString());
+					apiResponseModal.setMessage("Found Successfully !!");
+				}
+			}else {
+				apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+				apiResponseModal.setData("");
+				apiResponseModal.setMessage(errorList.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+			apiResponseModal.setData(null);
+			apiResponseModal.setMessage("Something went Wrong please try again");
+		}
+		log.info("Api :" + apiResponseModal);
+		return apiResponseModal;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/allActiveUsers" , method = RequestMethod.POST)
+	public APIResponseModal getUserList() {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();			
+		List<Users> userList = new ArrayList<>();
+		List<String> errorList = new ArrayList<>();
+		try {
+			userList= userService.findAllUsers(errorList);		
+			if(errorList.isEmpty()) {
+				apiResponseModal.setData(userList.toString());
+				apiResponseModal.setMessage("List Found");
+				apiResponseModal.setStatus(HttpStatus.OK);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+			apiResponseModal.setData("");
+			apiResponseModal.setMessage("Something Went Wrong !");
+			apiResponseModal.setStatus(HttpStatus.BAD_GATEWAY);
+		}
+		return apiResponseModal;
+	}
 	
 }	
