@@ -6,6 +6,7 @@ package com.indoCoupon.test.services;
 import java.util.List;
 
 import com.indoCoupon.test.modals.CouponsModal;
+import com.indoCoupon.test.modals.Users;
 
 /**
  * @author shiva
@@ -22,5 +23,6 @@ public interface CouponService {
 	public List<CouponsModal> getAllCoupons(List<String> errorList);
 	public CouponsModal getCouponByID(Integer couponId,List<String> errorList);
 	public List<CouponsModal> getCouponByBrand(Integer brand,List<String> errorList);
+	public List<CouponsModal> getCouponsByUser(Users user,List<String> errorList);
 	
 }

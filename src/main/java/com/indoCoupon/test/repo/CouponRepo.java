@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.indoCoupon.test.modals.CouponsModal;
+import com.indoCoupon.test.modals.Users;
 import com.indoCoupon.test.utils.Constants;
 
 /**
@@ -26,5 +27,5 @@ public interface CouponRepo extends JpaRepository<CouponsModal, Integer> {
 	Collection<CouponsModal> findAllActiveCoupons(Sort sort); 
 
 	List<CouponsModal> findByBrandEquals(Integer brand); 
-	
+	List<CouponsModal> findByUser(Users user);
 }

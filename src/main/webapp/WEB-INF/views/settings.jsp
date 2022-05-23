@@ -95,7 +95,7 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<nav class="nav nav-pills nav-justified" id="myTab">
-					<a class="nav-link active" aria-current="page" href="#">Your Coupons</a> 
+					<a class="nav-link active" aria-current="page" onclick="yourCoupons();"  href="#">Your Coupons</a> 
 					<a class="nav-link" href="#">Reset Password</a> 
 					<a class="nav-link" href="#">Manage Cards</a> 
 					<a class="nav-link" href="#" onclick="accountDetails();" tabindex="-1" aria-disabled="true">General Settings</a>

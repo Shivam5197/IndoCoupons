@@ -3,6 +3,7 @@
  */
 package com.indoCoupon.test.servicesImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -10,10 +11,12 @@ import javax.transaction.Transactional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.indoCoupon.test.modals.CouponsModal;
 import com.indoCoupon.test.modals.Users;
 import com.indoCoupon.test.repo.CouponRepo;
 import com.indoCoupon.test.repo.UserRepo;
@@ -69,9 +72,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(Users user, List<String> errorList) {
+	public void deleteUser(Integer userId, List<String> errorList) {
 		// TODO Auto-generated method stub
 
+		try {
+			if(new Utils().isNotNull(userId)) {
+				userRepo.deleteById(userId);
+			}else {
+				errorList.add("User Not Found !!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorList.add("Some Thing Went Wrong !");
+		}
 	}
 
 	@Override
@@ -158,4 +171,63 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	@Override
+	public void assignCouponToUser(Integer userId, Integer couponId, List<String> errorList) {
+		
+		try {
+			if(new Utils().isNotNull(userId)) {
+				Users user = new Users();
+				user = userRepo.findByUserId(userId);
+
+				if(new Utils().isNotNull(couponId)) {
+				CouponsModal coupon = new CouponsModal();
+				coupon = couponRepo.getCouponByCouponId(couponId);	
+				coupon.setUser(user);
+				mailService.sendCouponToUser(user, coupon, errorList);
+				if(errorList.isEmpty()) {
+					coupon.setCouponStatus(Constants.couponStatus.SOLD);
+				}
+				}else {
+					errorList.add("Coupon Not Found !!");
+				}
+			}else {
+				errorList.add("User Not Found !!");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorList.add("Something Went Wrong While PerforminTheaction");
+		}
+	}
+
+	@Override
+	public List<Users> findAllUsers(List<String> errorList) {
+		List<Users> customerList = new ArrayList<>();
+		try {
+			customerList = userRepo.findAllCustomerRoleUsers(Sort.by(Sort.Direction.DESC, "userId"));	
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorList.add("Something Went Wrong !");
+		}
+		return customerList;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

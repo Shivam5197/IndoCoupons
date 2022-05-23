@@ -6,9 +6,11 @@ package com.indoCoupon.test.modals;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,7 +44,8 @@ public class CouponsModal {
     private String couponExpiryDate;	
     private Integer couponStatus;
         
-    
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Users user;
 
 
 	public CouponsModal(Integer brand, String couponCode, String couponKey, String couponKeyValue, Integer couponValue,
@@ -71,7 +74,7 @@ public class CouponsModal {
 				+(couponPrice != null ? ",\"couponPrice\":\"" + couponPrice + "\" " : "")
 				+(couponExpiryDate != null ? ",\"couponExpiryDate\":\"" + couponExpiryDate + "\" " : "")
 				+(couponStatus != null ? ",\"couponStatus\":\"" + couponStatus + "\" " : "")
-//				+ (Hibernate.isInitialized(couponsModals) && couponsModals != null ? ",\"couponsModals\":" + couponsModals   : "")
+				+ (Hibernate.isInitialized(user) && user != null ? ",\"user\":" + user   : "")
 //				+ (Hibernate.isInitialized(cards) && cards != null ? ",\"cards\":" + cards   : "")
 //				+(addedAt != null ? ",\"addedAt\":\"" + addedAt + "\" " : "")
 				+ "}\t";

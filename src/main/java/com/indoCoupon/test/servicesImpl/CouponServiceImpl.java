@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.indoCoupon.test.modals.Users;
 import com.indoCoupon.test.repo.CouponRepo;
+import com.indoCoupon.test.repo.UserRepo;
 import com.indoCoupon.test.modals.CouponsModal;
 import com.indoCoupon.test.services.CouponService;
 import com.indoCoupon.test.utils.Constants;
@@ -36,6 +37,8 @@ public class CouponServiceImpl implements CouponService {
 	@Autowired
 	CouponRepo couponRepo;
 	
+	@Autowired
+	UserRepo userRepo;	
 	
 	@Override
 	public void saveCoupon(CouponsModal coupon, List<String> errorList) {
@@ -105,7 +108,6 @@ public class CouponServiceImpl implements CouponService {
 		}
 		return couponObj;
 	}
-
 	
 	@Override
 	public List<CouponsModal> getCouponByBrand(Integer brand, List<String> errorList) {
@@ -122,4 +124,19 @@ public class CouponServiceImpl implements CouponService {
 		}	
 		return couponsByBrand;
 	}
+
+	@Override
+	public List<CouponsModal> getCouponsByUser(Users user, List<String> errorList) {
+		List<CouponsModal> coupons = new ArrayList<CouponsModal>();
+		try {
+			if(new Utils().isNotNull(user))	
+				coupons = couponRepo.findByUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorList.add("Something Went Wrong !");
+		}
+		return coupons;
+	}
+
+
 }

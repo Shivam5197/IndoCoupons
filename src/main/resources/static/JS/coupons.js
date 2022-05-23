@@ -285,3 +285,68 @@ function editCouponForm(couponId){
 	
 }
 
+
+function manageCustomers(){
+	
+	var ajaxObject = new MasterAjax();
+	ajaxObject.requestType = "POST";
+	ajaxObject.url = "indoCoupon/v1/allActiveUsers";
+	ajaxObject.contentType = false;
+	ajaxObject.enctype = false;
+	ajaxObject.requestData(function(responseData) {
+		if (responseData.status == "OK" || responseData.status == "ok" ) {
+		let users = JSON.parse(responseData.data);	
+		usersList(users);
+		console.log(JSON.parse(responseData.data));
+		} else {
+		console.log(responseData.data);
+		}
+	});
+}
+
+
+function usersList(users){
+
+	let ui = `<div class="row">
+				</div>`;
+		if(users != 0||users !=null){				
+		ui += `<div class="row mt-5">
+					<h5 style="margin-left: 25%;">Customers</h5>
+				<div class="col-md-12">
+
+					<div class="table-responsive-md">
+					<table class="table" style="text-align: center;">
+						<thead class="thead-light">
+						  <tr>
+							<th scope="col">Full Name</th>
+							<th scope="col">Email </th>
+							<th scope="col">Phone Number</th>
+							<th scope="col">Coupons Purchased</th>							
+							<th scope="col">Delete</th>
+						</tr>
+						</thead>
+						<tbody>`;
+				for (var i = 0; i < users.length; i++) {
+					ui += `<tr>`;
+					
+					ui += 	`<th scope="col" >${users[i].fullName}</th>`;
+						ui += `<td>${users[i].email}</td>
+							<td>${users[i].phoneNumber}</td>`;
+					ui += `<td><button type="button" onclick="userPurchasedCoupons(${users[i].userId})" class="btn btn-success">Check Coupons</button></td>`;
+					
+						ui += `<td><button type="button" onclick="deleteUser(${users[i].userId})" class="btn btn-danger""><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+						  </tr>`;
+					};
+					ui += `</tbody>
+					  </table>
+	</div>`;
+	}else{
+	ui += `<h1>No Coupons Found !! Please add some.</h1>`;	
+	}
+			ui += `</div>
+				</div>`;
+
+	$("#admin_Workspace").html(ui);
+
+	
+}
