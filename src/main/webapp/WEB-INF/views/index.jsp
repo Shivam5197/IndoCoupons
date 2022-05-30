@@ -90,6 +90,43 @@
 
 </head>
 <body>
+
+
+	<div class="modal fade rounded " id="main-model">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+
+				<!--  Modal Header     -->
+				<div class="modal-header p-3">
+					<h6 class="modal-title" id="main-model-title">
+						<i class="fas fa-table text-primary"></i> Select Table Columns
+					</h6>
+<!-- 					<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+					<button style="color: #fff;" type="button" class="close"
+						onclick="resetPosition()" data-dismiss="modal">
+						<i class="fas fa-times"></i>
+					</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body" id="main-model-body">Please wait.....
+				</div>
+
+				<!--  Modal footer -->
+				<div class="modal-footer">
+					<div id="main-modal-handler"></div>
+					<button type="button" class="btn btn-secondary"
+						onclick="resetPosition()" data-dismiss="modal">
+						<span id="main-model-close-btn-text">Close</span>
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
     <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">				

@@ -96,8 +96,8 @@
 			<div class="col-md-8">
 				<nav class="nav nav-pills nav-justified" id="myTab">
 					<a class="nav-link active" aria-current="page" onclick="yourCoupons();"  href="#">Your Coupons</a> 
-					<a class="nav-link" href="#">Reset Password</a> 
-					<a class="nav-link" href="#">Manage Cards</a> 
+					<a class="nav-link" onclick="resetPassword();" href="#">Reset Password</a> 
+					<a class="nav-link" onclick="manageCards();" href="#">Manage Cards</a> 
 					<a class="nav-link" href="#" onclick="accountDetails();" tabindex="-1" aria-disabled="true">General Settings</a>
 				</nav>
 			</div>
@@ -116,6 +116,20 @@
 
 
 	<script>
+	
+	function resetPassword(){
+		
+		swal({
+			title : "Coming soon !",
+			text : "This feature is under developement However You can reset your password using forgot password on login Page",
+			icon : "warning",
+			dangerMode : true,
+			button : "OK",
+	});
+
+	}
+	
+	
 		var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
 		triggerTabList.forEach(function(triggerEl) {
 			var tabTrigger = new bootstrap.Tab(triggerEl)
@@ -125,6 +139,19 @@
 				tabTrigger.show()
 			})
 		})
+		
+		function manageCards(){
+			
+			swal({
+				title : "Coming soon !",
+				text : "This feature is under developement",
+				icon : "warning",
+				dangerMode : true,
+				button : "OK",
+		});
+
+		}
+		
 	</script>
 
 

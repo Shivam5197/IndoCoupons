@@ -88,13 +88,13 @@ let cards = `
                   <p>You will be saving <i class="fas fa-rupee-sign"></i> <a style="color: red; font-weight: 800;"> ${couponList.couponValue} </a> on your purchase by just paying <i class="fas fa-rupee-sign"></i> <a style="color: forestgreen; font-weight: 800;"> ${couponList.couponPrice} </a></p>
                   <p>Expiry Date : ${couponList.couponExpiryDate}</p>
                 </p>
-               <a href="" class="btn  btn-outline-danger btn-sm">How to use <i class="fa fa-info-circle" aria-hidden="true"></i></a>
+               <a href="" class="btn btn-outline-danger btn-sm" onclick="usagePopp();">How to use <i class="fa fa-info-circle" aria-hidden="true"></i></a>
               </div>
              </div>
             </div>
            
           <div class="col-md-12">
-			 <a onclick="sendMailToAdmin(${couponList.couponId});" class="btn btn-primary" style="width: 100%;">Amount Paid</a>
+			 <a onclick="sendMailToAdmin(${couponList.couponId});" class="btn btn-primary" style="width: 100%;margin-bottom: 10vh;">Amount Paid</a>
           </div>
 `;
 }else{
@@ -139,11 +139,25 @@ obj.dataType= "application/json";
 obj.requestData(function(responseData){
 	if(responseData.status == "OK" || responseData.status == "ok"){
 
-	
+Swal.fire({
+  icon: 'success',
+  title: 'Congrats !',
+  text: responseData.data,
+})
 }else{
-	
+Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: responseData.message,
+})
 }
 
 });
+
+}
+
+
+function usagePopp(){
+	
 
 }

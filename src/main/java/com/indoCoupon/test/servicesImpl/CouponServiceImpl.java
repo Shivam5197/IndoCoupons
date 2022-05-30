@@ -126,11 +126,16 @@ public class CouponServiceImpl implements CouponService {
 	}
 
 	@Override
-	public List<CouponsModal> getCouponsByUser(Users user, List<String> errorList) {
+	public List<CouponsModal> getCouponsByUser(Users user, Integer userId,List<String> errorList) {
 		List<CouponsModal> coupons = new ArrayList<CouponsModal>();
 		try {
+			if(new Utils().isNotNull(userId) && user == null ){
+				user = userRepo.findByUserId(userId);
+			}
+			
 			if(new Utils().isNotNull(user))	
 				coupons = couponRepo.findByUser(user);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			errorList.add("Something Went Wrong !");
@@ -138,5 +143,51 @@ public class CouponServiceImpl implements CouponService {
 		return coupons;
 	}
 
+	@Override
+	public List<CouponsModal> getSoldCoupons(List<String> errorList) {
 
+		List<CouponsModal> coupons = new ArrayList<>();
+		try {
+			coupons = (List<CouponsModal>) couponRepo.findAllSoldCoupons(Sort.by(Sort.Direction.DESC, "couponId"));			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return coupons;
+	}
+
+@Override
+public CouponsModal updateCoupon(CouponsModal newCoupon, Integer couponId, List<String> errorList) {
+		CouponsModal updateCoupon = new CouponsModal();
+//		log.info("Servicee Impl New Coupon: " + newCoupon);
+//		log.info("Servicee Impl NEw CouponID: " + couponId);
+		
+		try {
+			if(new Utils().isNotNull(couponId)) {
+				updateCoupon = couponRepo.getById(couponId);
+				
+				if(new Utils().isNotNull(updateCoupon) && new Utils().isNotNull(newCoupon)) {
+
+					updateCoupon.setBrand(newCoupon.getBrand());
+					updateCoupon.setCouponCode(newCoupon.getCouponCode());
+					updateCoupon.setCouponKey(newCoupon.getCouponKey());
+					updateCoupon.setCouponKeyValue(newCoupon.getCouponKeyValue());
+					updateCoupon.setCouponPrice(newCoupon.getCouponPrice());
+					updateCoupon.setCouponValue(newCoupon.getCouponValue());
+					updateCoupon.setCouponExpiryDate(newCoupon.getCouponExpiryDate());
+					updateCoupon.setCouponStatus(newCoupon.getCouponStatus());
+					couponRepo.save(updateCoupon);
+					
+				}else {
+					errorList.add("Coupon Not Found");
+				}			
+			}else {
+				errorList.add("Coupon Not Found in Database");
+			}
+		} catch (Exception e) {
+			errorList.add("Something Went wrong");
+			e.printStackTrace();
+		}	
+	return updateCoupon;
+}
+	
 }

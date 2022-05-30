@@ -25,8 +25,7 @@
 	rel="stylesheet" id="bootstrap-css">
 
 <%-- Sweet Alert CDN --%>
-<link rel='stylesheet'
-	href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link> 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%-- Sweet Alert CDN --%>
 
@@ -94,6 +93,44 @@ body {
 
 </head>
 <body>
+
+	<div class="modal fade rounded " id="main-model">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+
+				<!--  Modal Header     -->
+				<div class="modal-header p-3">
+					<h6 class="modal-title" id="main-model-title">
+						<i class="fas fa-table text-primary"></i> Select Table Columns
+					</h6>
+<!-- 					<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+					<button style="color: #fff;" type="button" class="close"
+						onclick="resetPosition()" data-dismiss="modal">
+						<i class="fas fa-times"></i>
+					</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body" id="main-model-body">Please wait.....
+				</div>
+
+				<!--  Modal footer -->
+				<div class="modal-footer">
+					<div id="main-modal-handler"></div>
+					<button type="button" class="btn btn-secondary"
+						onclick="resetPosition()" data-dismiss="modal">
+						<span id="main-model-close-btn-text">Close</span>
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
 	<nav class="navbar fixed-top sticky-top"
 		style="background-color: #0a0a4b; position: fixed;">
 		<div class="container-fluid">
@@ -131,7 +168,7 @@ body {
 			<div class="row">
 				<div class="col-md-12"></div>
 				<div class="col-md-12 mt-1">
-					<a onclick="" class="anchor-link" href=""
+					<a onclick="forgotPassWordPopup();"  
 						style="cursor: pointer; color: blue;">Forgot Password ??</a>
 				</div>
 				<div class="col-md-12 mt-1">
@@ -149,12 +186,76 @@ body {
 
 
 	<script>
+	
+	
+	function forgotPassWordPopup(){
+		console.log("Check UI ");
+		let header = "<h4>Forgot Password </h4>";
+	 	let ui = "<div class=\"col-md-12\">"
+		+"<div class=\"row mt-2\">"
+		+"<div class=\"col-md-12\">"
+		+"<div class=\"input_div\">"
+		+"<input type=\"text\" class=\"inputTxt\" id=\"userNameFLog\""+
+			"name=\"userNameLog\" required=\"required\" placeholder=\"\"> <label"+
+			"for=\"\" class=\"inputlab\">User Name</label>"+
+	"</div>"+
+	"</div>"+
+	 	"</div>";
+
+	    let footer =  "<button type=\"submit\" onclick=\"sendForgotPasswordRequest();\" class=\"btn btn-info\">Send Request</button>";
+	    
+	    let popUp = new MainPopUpModal(header, ui, footer);
+	    popUp.show();
+	}
+	
+
+	function sendForgotPasswordRequest(){		
+	let name =	$("#userNameFLog").val()
+	
+	if(name == null && name == ""){
+			swal({
+					title : "Failed !",
+					text : "Please Enter couponValue",
+					icon : "warning",
+					dangerMode : true,
+					button : "OK",
+			});
+		}
+	
+	var ajaxObject = new MasterAjax();
+	ajaxObject.requestType = "POST";
+	ajaxObject.url = "indoCoupon/v1/sendForgotPasswordto/"+name+"";
+	ajaxObject.contentType = false;
+	ajaxObject.enctype = false;
+	ajaxObject.requestData(function(responseData) {
+		if (responseData.status == "OK" || responseData.status == "ok" ) {
+			swal({
+				title : "success !",
+				text : responseData.message,
+				icon : "success",
+				button : "OK",
+		});
+		    let popUp = new MainPopUpModal(header, ui, footer);
+		    popUp.hide();
+
+		} else {
+			swal({
+				title : "Failed !",
+				text : responseData.message,
+				icon : "warning",
+				dangerMode : true,
+				button : "OK",
+		});
+
+		}
+	});
+}
+	
 		function validateLogin() {
 			let formData = new FormData();
 
 			formData.append("userName", $("#userNameLog").val());
 			formData.append("password", $("#passwordLog").val());
-
 			var obj = new MasterAjax();
 			obj.requestType = "POST";
 			obj.url = "indoCoupon/v1/validateUser";

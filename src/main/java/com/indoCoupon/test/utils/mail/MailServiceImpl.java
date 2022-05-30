@@ -431,5 +431,80 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
+	@Override
+	public void sendForgotPassWordMail(Users user, List<String> errorList) {
+		final String baseUrl = 
+				ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();	
+
+		try {
+			if(new Utils().isNotNull(user)){
+
+				MailDTO maildto= new MailDTO();
+				maildto.setSUBJECT("Reset Password");
+				maildto.setTO(user.getEmail());
+				maildto.setMESSAGE("<!DOCTYPE html>\r\n"
+						+ "<html>\r\n"
+						+ "<head>\r\n"
+						+ "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n"
+						+ "<style>\r\n"
+						+ "* {\r\n"
+						+ "  box-sizing: border-box;\r\n"
+						+ "}\r\n"
+						+ ".button {\r\n"
+						+ "									margin-left: 42%;\r\n"
+						+ "									background-color: #514a9b;\r\n"
+						+ "									border-radius: 5px;\r\n"
+						+ "									color: black;\r\n"
+						+ "									padding: .5em;\r\n"
+						+ "									 text-decoration: none;\r\n"
+						+ "									}\r\n"
+						+ ".button:focus,\r\n"
+						+ "					.button:hover {\r\n"
+						+ "					background-color: #514a9b;\r\n"
+						+ "					color: White;\r\n"
+						+ "					}\r\n"
+						+ "</style>\r\n"
+						+ "</head>\r\n"
+						+ "<body>\r\n"
+						+ "  <div class=Main-card style=\"\r\n"
+						+ "  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);\r\n"
+						+ "  transition: 0.3s;\r\n"
+						+ "  width: 80%;\r\n"
+						+ "  height: 100%;\r\n"
+						+ "  \">\r\n"
+						+ "<div class=insideHead style=\"height: 26%; width: 100%; background-color: #514a9b;\">\r\n"
+						+ "  <img src=resources/static/images/logo.jpg alt=IndoCoupon logo style=\"height: 40%; width: 15%;\r\n"
+						+ "  display: block;\r\n"
+						+ "  margin-left: auto;\r\n"
+						+ "  margin-right: auto;\r\n"
+						+ "  padding: 4% \">\r\n"
+						+ "  <h1></h1>\r\n"
+						+ "</div>\r\n"
+						+ "<p style=\"margin-left: 2%;\">Hello, "+user.getFullName()+" </p>\r\n"
+						+ "<p style=\"margin-left: 2%;\">Forgot Password? No worries You can reset your password Just by Click on the ResetButton </p>\r\n"
+						+ "<hr>\r\n"
+						+ "<a href=\""+baseUrl+"/indoCoupon/v1/resetPassword/"+user.getUserId()+"\" class=\"button\">Reset Password</a>\r\n"
+						+ "<h4 style=\"margin-left: 2%;\">If You have not Requested <a href=\"\">Click here to Report</a></h4>\r\n"
+						+ "<h4 style=\"margin-left: 2%;\">Best Regards,</h4>\r\n"
+						+ "<h4 style=\"margin-left: 2%;\">IndoCoupon Team</h4>\r\n"
+						+ "</body>\r\n"
+						+ "</html>\r\n"
+						+ "");
+				
+				sendMail(maildto, errorList);
+			}else {
+				errorList.add("User not Found !!");
+				throw new UsernameNotFoundException("User not found");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		
+	}
+
 
 }
