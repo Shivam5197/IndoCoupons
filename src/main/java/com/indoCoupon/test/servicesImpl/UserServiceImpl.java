@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 	public Users saveUser(Users user, List<String> errorList) {
 		Users userToSave = null;	
 		try {
-			if(user.getUserName().equalsIgnoreCase("super")) {
+			if(user.getUserName().equalsIgnoreCase("admin")) {
 				user.setRole(Constants.userRole.ADMIN);
 				}else {
 					user.setRole(Constants.userRole.CUSTOMER);
