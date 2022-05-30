@@ -53,8 +53,12 @@ public class UserServiceImpl implements UserService {
 	public Users saveUser(Users user, List<String> errorList) {
 		Users userToSave = null;	
 		try {
+			if(user.getUserName().equalsIgnoreCase("super")) {
+				user.setRole(Constants.userRole.ADMIN);
+				}else {
+					user.setRole(Constants.userRole.CUSTOMER);
+				}
 			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-			user.setRole(Constants.userRole.CUSTOMER);
 			user.setAddedAt(new java.sql.Timestamp(System.currentTimeMillis()));
 			userToSave =userRepo.save(user);
 			mailService.WelcomeMail(user, errorList);
@@ -211,6 +215,55 @@ public class UserServiceImpl implements UserService {
 		}
 		return customerList;
 	}
+
+	@Override
+	public Boolean SendForgotPasswordMail(String username, List<String> errorList) {
+		
+		try {
+			if(!new Utils().isNotNull(username)) {
+				return false;	
+			}
+			Users user = userRepo.findByUserName(username);
+			if(!new Utils().isNotNull(user)) {
+				return false;	
+			}
+			mailService.sendForgotPassWordMail(user,errorList);
+			
+			if(errorList.isEmpty()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return false;
+	}
+
+	@Override
+	public Users updateUserPassword(Integer userId, String newPassword, List<String> errorList) {
+		Users user = new Users();
+
+		try {
+			if(new Utils().isNotNull(userId) && new Utils().isNotNull(newPassword)) {
+				user = userRepo.findByUserId(userId);
+				if(new Utils().isNotNull(user)) {
+					user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+						userRepo.save(user);
+				}else {
+					errorList.add("User not Found !");	
+				}
+			}else {
+				errorList.add("Please Enter the Password ");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			errorList.add("Somethign went wrong ");
+		}				
+		return user;
+	}
+	
+	
+
 }
 
 

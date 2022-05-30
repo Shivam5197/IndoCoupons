@@ -77,6 +77,43 @@ public class CouponController {
 		return apiResponseModal;
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateCoupon/{couponId}", method = {RequestMethod.POST,RequestMethod.GET})
+	public APIResponseModal updatecoupon(@ModelAttribute CouponsModal couponModal,@PathVariable("couponId") Integer couponId,  HttpSession session) {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();
+		
+//		log.info("Coupon ID: " + couponId);
+//		log.info("Coupon Model Aaya hai : " + couponModal);
+		List<String> errorList = new ArrayList<>();
+
+		try {
+			Users user = (Users) session.getAttribute("loggedInUser");			
+			if(new Utils().isNotNull(user) && user.getRole() == Constants.userRole.ADMIN) {
+				couponService.updateCoupon(couponModal, couponId,errorList);		
+				if(errorList.isEmpty()) {
+					apiResponseModal.setStatus(HttpStatus.OK);
+					apiResponseModal.setMessage("Updated Successfully !");
+					apiResponseModal.setData(null);
+				}else {
+					apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
+					apiResponseModal.setMessage(errorList.toString());
+					apiResponseModal.setData(null);
+				}			
+			}else {
+				apiResponseModal.setStatus(HttpStatus.UNAUTHORIZED);
+				apiResponseModal.setMessage("Session Timed out !");
+				apiResponseModal.setData(null);
+			}
+		} catch (Exception e) {
+			apiResponseModal.setMessage("Something went wrong !!");
+			apiResponseModal.setStatus(HttpStatus.EXPECTATION_FAILED);
+			e.printStackTrace();
+		}
+		return apiResponseModal;
+	}
+
+	
 	@ResponseBody
 	@RequestMapping(value = "/getAllCoupons")
 	public APIResponseModal getCouponsList(HttpSession session) {
@@ -198,7 +235,7 @@ public class CouponController {
 						apiResponseModal.setData("We Have Informend Admin about your Request !!"
 								+ "/n "
 								+ "Once the Payment Approved by Admin Your Coupon Details will be mailed you on Your Email Id");
-						apiResponseModal.setMessage("Success !!");
+						apiResponseModal.setMessage("Success");
 						apiResponseModal.setStatus(HttpStatus.OK);
 					}else {
 						apiResponseModal.setMessage(errorList.toString());
@@ -216,5 +253,25 @@ public class CouponController {
 		return apiResponseModal;
 	}
 
+	
+	@ResponseBody
+	@RequestMapping(value = "/getSoldCoupons", method = {RequestMethod.GET,RequestMethod.POST})
+	public APIResponseModal getListSoldCoupons() {
+		APIResponseModal apiResponseModal = new Utils().getDefaultApiResponse();			
+		List<CouponsModal> coupons = new ArrayList<>();
+		List<String> errorList = new ArrayList<>();
+		try {
+			coupons= couponService.getSoldCoupons(errorList);		
+			if(errorList.isEmpty()) {
+				apiResponseModal.setData(coupons.toString());
+				apiResponseModal.setMessage("List Found");
+				apiResponseModal.setStatus(HttpStatus.OK);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return apiResponseModal;
+
+	}
 	
 }

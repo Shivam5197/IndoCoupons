@@ -55,12 +55,26 @@
 		</dependency>
 
 
-		<dependency>
+	<!-- Uncomment this to test and Add new Featues the application in local -->
+		<!-- <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>
-				<!-- to in include Bcrypt password Encoder -->
+		</dependency> -->
+	<!-- Uncomment this to test and Add new Featues the application in local -->
+		
+
+<!-- 	only to deploy on heroku		 -->
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+	 <dependency>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<scope>runtime</scope>
+    </dependency>		
+<!-- 	only to deploy on heroku		 -->
+
+		
+		<!-- to in include Bcrypt password Encoder -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>

@@ -22,4 +22,7 @@ public interface UserService {
 	public Boolean userNameExits(String userName, List<String> errorList);
 	public void assignCouponToUser(Integer userId,Integer couponId,List<String> errorList);
 	public List<Users> findAllUsers(List<String> errorList);
+	public Boolean SendForgotPasswordMail(String username, List<String> errorList);
+	public Users updateUserPassword(Integer userId, String newPassword,List<String> errorList);
+
 }

@@ -23,6 +23,8 @@ public interface CouponService {
 	public List<CouponsModal> getAllCoupons(List<String> errorList);
 	public CouponsModal getCouponByID(Integer couponId,List<String> errorList);
 	public List<CouponsModal> getCouponByBrand(Integer brand,List<String> errorList);
-	public List<CouponsModal> getCouponsByUser(Users user,List<String> errorList);
+	public List<CouponsModal> getCouponsByUser(Users user,Integer userId, List<String> errorList);
+	public List<CouponsModal> getSoldCoupons(List<String> errorList);
+	public CouponsModal updateCoupon(CouponsModal newCoupon, Integer couponId, List<String> errorList);
 	
 }

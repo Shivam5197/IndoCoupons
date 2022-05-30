@@ -26,6 +26,12 @@ public interface CouponRepo extends JpaRepository<CouponsModal, Integer> {
 	@Query("SELECT c FROM CouponsModal c WHERE c.couponStatus = "+Constants.couponStatus.ACTIVE+"")
 	Collection<CouponsModal> findAllActiveCoupons(Sort sort); 
 
+	@Query("SELECT c FROM CouponsModal c WHERE c.couponStatus = "+Constants.couponStatus.SOLD+"")
+	Collection<CouponsModal> findAllSoldCoupons(Sort sort); 
+
 	List<CouponsModal> findByBrandEquals(Integer brand); 
 	List<CouponsModal> findByUser(Users user);
+	
+
 }
+

@@ -54,7 +54,7 @@
 <script type="text/javascript" charset="utf8"
 	src="<c:url value="/JS/indexJs.js"/>"></script>
 <script type="text/javascript" charset="utf8"
-	src="<c:url value="/JS/coupons.js"/>"></script>
+	src="<c:url value="/JS/payment.js"/>"></script>
 
 <!-- Internal JS files -->
 
@@ -65,19 +65,6 @@
 <script type="text/javascript">
 	var global_contextPath = "${pageContext.request.contextPath}";
 </script>
-
-<style>
-.text-center{
-	text-align: center;
-}
-
-#brandDropDown{padding: 6px;
-    width: 100%;
-    border-radius: 7px;
-    height: 6vh;
-    background-color: powderblue;
-}
-</style>
 
 </head>
 <body>
@@ -115,62 +102,110 @@
 		</div>
 	</div>
 
-
-
     <nav class="navbar fixed-top sticky-top" style="background-color: #0a0a4b; position: fixed;">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">				
+          <a class="navbar-brand" href="/indoCoupon/v1/home">				
 			 <img src="<s:url value="/images/logo.jpg"/>" alt=""  height="50" class="d-inline-block align-text-top">
 
           </a>
-          <form class="justify-content-end" id="login-SignUp_Button_Div">
-        </form>
         </div>
       </nav>
-	  
 
-	<div class="container card shadow" style="margin-top: 11vh;">
-		<div class="row">
-			<!-- 		<div class="col-md-12"> -->
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<nav class="nav nav-pills nav-justified mt-4" id="myTab">
-					<a class="nav-link active" aria-current="page" href="#">Dashboard</a> 
-					<a class="nav-link" onclick="manageCustomers();" href="#">Manage Customers</a> 
-					<a class="nav-link" onclick="manageCoupons();" href="#">Manage Coupons</a> 
-					<a class="nav-link" href="#" onclick="couponsSold();" tabindex="-1" aria-disabled="true">Coupons Sold</a>
-				</nav>
+	<div class="container"  style="margin-top: 11vh;">
+		<div class="card shadow-lg text-center ">
+			<div class="card-header">Reset Your Password</div>
+			<div class="card-body">
+
+				<form class="resetForm">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input_div ">
+								<input type="password" class="inputTxt" id="newPassword"
+									name="newPassword" required="required" placeholder="">
+								<label for="" class="inputlab">New Password</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="input_div">
+								<!-- style="margin-top: 11%;" -->
+								<input type="text" class="inputTxt" id="confirmPass"
+									name="confirmPass" required="required"
+									placeholder=""> <label
+									for="" class="inputlab">Confirm Password</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="buot">
+						<button type="button" onclick="setPass(${userId});" class="btn btn-primary float-right" >Reset
+							Password</button>
+					</div>
+				</form>
+
 			</div>
-			<div class="col-md-2"></div>
+			<div class="card-footer text-muted">-------</div>
 		</div>
 	</div>
 
-	<div class="container card shadow" style="margin-top: 5vh;">
-		<div class="row">
-			<div class="col-md-12">
-			<div id= "admin_Workspace" class="admin_Workspace"></div>
-		</div>
-		</div>
-	</div>
 
-	<script>
-		var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
-		triggerTabList.forEach(function(triggerEl) {
-			var tabTrigger = new bootstrap.Tab(triggerEl)
+ 
 
-			triggerEl.addEventListener('click', function(event) {
-				event.preventDefault()
-				tabTrigger.show()
-			})
-		})
-		
-		
-	</script>
+<script>
 
+function setPass(userId){	
+	
+	  if (document.getElementById('newPassword').value ==
+		    document.getElementById('confirmPass').value){
 
+			var pass= document.getElementById("newPassword").value;
+			var obj = new MasterAjax();
+			obj.requestType = "POST";
+			obj.url = "indoCoupon/v1/reset/"+userId+"";
+			obj.data = pass;
+			obj.contentType = false;
+			obj.processData = false;
+			obj.dataType= "application/json";
+			obj.requestData(function(responseData) {
+				if (responseData.status == "OK" || responseData.status == "ok" ) {
+					console.log(responseData.data);
+					swal({
+						  title: "Congrats !",
+		  				  text: responseData.message,
+		  				  icon: "success",
+		 				  button: "OK",
+					});
+					
+					let LoginBtn = "<button type=\"button\" href=\"/indoCoupon/v1/login\" class=\"btn btn-primary\">Go to Login Page</button>";
+					
+					let popUp = new MainPopUpModal("","You will be redirected to Login page",LoginBtn);
+					popUp.show();
+					
+				} else {
+					swal({
+						title : "Failed !",
+						text : responseData.message,
+						icon : "warning",
+						dangerMode : true,
+						button : "OK",
+				});	
+				}
+			});		  
+		  
+	  }else{
+			swal({
+				title : "Failed !",
+				text : "Confirm password do not match with New Password",
+				icon : "warning",
+				dangerMode : true,
+				button : "OK",
+		});
+			
+	  }
+}
 
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
