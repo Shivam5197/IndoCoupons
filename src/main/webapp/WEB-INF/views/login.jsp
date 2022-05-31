@@ -164,6 +164,12 @@ body {
 							for="" class="inputlab">Password</label>
 					</div>
 				</div>
+			<div class="col-md-12">
+					<div class="input_div">
+			<input type="checkbox" onclick="showPassword()"> Show Password
+					</div>
+				</div>
+				
 			</div>
 			<div class="row">
 				<div class="col-md-12"></div>
@@ -187,6 +193,14 @@ body {
 
 	<script>
 	
+	function showPassword(){
+		  var x = document.getElementById("passwordLog");
+		  if (x.type === "password") {
+		    x.type = "text";
+		  } else {
+		    x.type = "password";
+		  }
+	}
 	
 	function forgotPassWordPopup(){
 		console.log("Check UI ");
