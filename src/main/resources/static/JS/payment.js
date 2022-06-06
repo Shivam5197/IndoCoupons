@@ -29,8 +29,8 @@ let cards = `
 	</div>
 
       <div class="col-md-6">
-        <h2>You can Scan this QR code to make payment</h2>
-        <img src="/images/qrcode.jpeg" alt="" style="width: inherit;">
+        <h2>You can Scan this QR code to make payment or Use Paytm ID: 9818535782220@paytm</h2>
+        <img src="/images/qrcode.png" alt="" style="width: inherit;">
         <h4>Facing Issue Try entering the Paytm ID: 9818535782220@paytm</h4>
       </div>
 
