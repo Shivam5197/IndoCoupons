@@ -77,7 +77,7 @@
 	<nav class="navbar fixed-top sticky-top"
 		style="background-color: #0a0a4b; position: fixed;">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
+			<a class="navbar-brand" href="/indoCoupon/v1/home"> <img
 				src="<s:url value="/images/logo.jpg"/>" alt="" height="50"
 				class="d-inline-block align-text-top">
 
