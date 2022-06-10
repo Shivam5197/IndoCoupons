@@ -54,7 +54,7 @@ public class MailServiceImpl implements MailService {
 //			log.info("Mail DTO --------- "+mailDto);
 //			log.info("errorList --------- "+errorList);
 			mailDto.setFROM("indocoupon.noreply@gmail.com");
-			mailDto.setPASSWORD("indoCoupon@2597");
+			mailDto.setPASSWORD("rsnxskykavvpclan");
 			
 			if (mailDto.getTO() != null) {
 				
