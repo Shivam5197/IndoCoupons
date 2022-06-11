@@ -140,8 +140,6 @@ public class CouponController {
 		List<String> errorList = new ArrayList<>();
 		CouponsModal coupon = new CouponsModal();
 		try {
-			Users admin = (Users) session.getAttribute("loggedInUser");
-
 			if(new Utils().isNotNull(couponId)) {
 					coupon = couponService.getCouponByID(couponId, errorList);	
 
@@ -180,7 +178,6 @@ public class CouponController {
 				apiResponseModal.setStatus(HttpStatus.OK);
 			}		
 		} catch (Exception e) {
-			// TODO: handle exception
 			apiResponseModal.setMessage("Something Went wrong Please try after sometime");	
 			e.printStackTrace();
 		}

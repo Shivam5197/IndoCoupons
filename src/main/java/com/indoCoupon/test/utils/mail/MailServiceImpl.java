@@ -14,7 +14,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -81,7 +80,6 @@ public class MailServiceImpl implements MailService {
 					log.info(
 							"-----------------------------Mail Sent Successfully--------------------------------------");
 				} catch (MessagingException me) {
-					// TODO Auto-generated catch block
 					me.printStackTrace();
 				} 
 			}else {
@@ -166,7 +164,6 @@ public class MailServiceImpl implements MailService {
 				throw new UsernameNotFoundException("User not found");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -362,7 +359,6 @@ public class MailServiceImpl implements MailService {
 			throw new UsernameNotFoundException("User not found");
 		}
 	} catch (Exception e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 }
@@ -426,7 +422,6 @@ public class MailServiceImpl implements MailService {
 				throw new UsernameNotFoundException("User not found");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -497,7 +492,6 @@ public class MailServiceImpl implements MailService {
 				throw new UsernameNotFoundException("User not found");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

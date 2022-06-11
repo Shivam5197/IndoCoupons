@@ -9,8 +9,6 @@ import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -29,8 +27,6 @@ import com.indoCoupon.test.services.UserService;
 import com.indoCoupon.test.utils.APIResponseModal;
 import com.indoCoupon.test.utils.Constants;
 import com.indoCoupon.test.utils.Utils;
-import com.indoCoupon.test.utils.mail.MailDTO;
-import com.indoCoupon.test.utils.mail.MailService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/indoCoupon/v1")
 @Slf4j
 public class MainController {
-	private static final Logger logger = LogManager.getLogger(MainController.class);
+//	private static final Logger logger = LogManager.getLogger(MainController.class);
 
 	public static final String homePage = "index";
 	public static final String loginPage = "login";

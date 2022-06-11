@@ -26,7 +26,6 @@ import com.indoCoupon.test.utils.Utils;
 import com.indoCoupon.test.utils.mail.MailService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author shiva
@@ -34,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * Package  com.indoCoupon.test.servicesImpl
  */
 
-@Slf4j
+//@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
