@@ -1,6 +1,12 @@
 
 function qrCodeUI(couponId){
 
+			Swal.fire({
+			  icon: 'error',
+			  title: 'Oops...',
+			  text: 'Due to some technical issue We are not able to accept UPI payments. We kindly request you to make the payment using Paytm wallet',
+			  footer: '<a onclick="phoneNumberPopup()" >Make payment Using Paytm Wallet</a>'
+			})
 
 var obj = new MasterAjax();
 obj.requestType = "POST";
@@ -29,9 +35,8 @@ let cards = `
 	</div>
 
       <div class="col-md-6">
-        <h2>You can Scan this QR code to make payment or Use Paytm ID: 9818535782220@paytm</h2>
+        <h2>You can Scan this QR code to make payment or Use Paytm number: 9818535782</h2>
         <img src="/images/qrcode.png" alt="" style="width: inherit;">
-        <h4>Facing Issue Try entering the Paytm ID: 9818535782220@paytm</h4>
       </div>
 
       <div class="col-md-6">
@@ -109,7 +114,6 @@ let cards = `
 			  text: 'Something went wrong!',
 			  footer: '<a href="">Report to Admin?</a>'
 			})
-
 	}
 });	
 
@@ -158,6 +162,10 @@ Swal.fire({
 
 
 function usagePopp(){
-	
+}
 
+
+
+function phoneNumberPopup(){
+Swal.fire('Our Paytm is active on number: 9818535782 ');
 }

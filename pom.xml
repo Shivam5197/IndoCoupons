@@ -57,7 +57,7 @@
 
 
 	<!-- Uncomment this to test and Add new Featues the application in local -->
-	<!-- 	<dependency>
+<!--  	<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -67,11 +67,11 @@
 
 <!-- 	only to deploy on heroku		 -->
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
-  	 <dependency>
+ <dependency>
     	<groupId>org.postgresql</groupId>
     	<artifactId>postgresql</artifactId>
     	<scope>runtime</scope>
-    </dependency>	
+    </dependency>	 
  <!-- 	only to deploy on Heroku	-->
 
 		

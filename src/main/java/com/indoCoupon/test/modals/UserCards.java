@@ -3,7 +3,6 @@
  */
 package com.indoCoupon.test.modals;
 
-import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
