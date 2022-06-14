@@ -139,7 +139,7 @@
 					</div>
 
 					<div class="buot">
-						<button type="button" onclick="setPass(${userId});" class="btn btn-primary float-right" >Reset
+						<button type="button" onclick="setPass(${userId}); this.disabled=true;" class="btn btn-primary float-right" >Reset
 							Password</button>
 					</div>
 				</form>

@@ -158,13 +158,16 @@ body {
 			  </div>
 			  </div>
 		
-			<button type="submit" onclick="registerUser();" class="btn btn-outline-primary mt-2">Sign UP</button>
+			<button type="submit" onclick="registerUser(); this.disabled=true;" class="btn btn-outline-primary mt-2">Sign UP</button>
 
 		</div>
 	  </div>
 
 <script>
 function registerUser(){
+	
+
+	
 	let formData = new FormData();
 	formData.append("fullName", $("#fullName").val());
 	formData.append("userName", $("#userName").val());

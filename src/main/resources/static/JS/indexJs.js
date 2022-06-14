@@ -101,7 +101,7 @@ function adminAccountpopup(userId){
 			  +"</div>"
 
 	let footer = "<a type=\"button\" href=\"/indoCoupon/v1/logout\" class=\"btn btn-danger mr-2\">Logout</a>"
-	+"<button type=\"submit\" onclick=\"updateAdminProfile("+user.userId+")\" class=\"btn btn-outline-primary mr-2\">Save Details</button>";
+	+"<button type=\"submit\" onclick=\"updateAdminProfile("+user.userId+") this.disabled=true;\" class=\"btn btn-outline-primary mr-2\">Save Details</button>";
 	
 	let popUp = new MainPopUpModal(header, body, footer);
     popUp.show();			
@@ -326,8 +326,8 @@ function homecardsbrandWise(couponList){
                   <p>You will be saving <i class="fas fa-rupee-sign"></i> <a style="color: red; font-weight: 800;"> ${couponList[i].couponValue} </a> on your purchase by just paying <i class="fas fa-rupee-sign"></i> <a style="color: forestgreen; font-weight: 800;"> ${couponList[i].couponPrice} </a></p>
                   <p>Expiry Date : ${couponList[i].couponExpiryDate}</p>
                 </p>
-               <a onclick="paymentsPage(${couponList[i].couponId});"  class="btn btn-outline-success btn-sm">Use Coupon</a>
-               <a onclick="usagePopup();" class="btn  btn-outline-danger btn-sm">How to use <i class="fa fa-info-circle" aria-hidden="true"></i></a>
+               <a onclick="paymentsPage(${couponList[i].couponId}); "  class="btn btn-outline-success btn-sm">Use Coupon</a>
+               <a onclick="usagePopup(); " class="btn  btn-outline-danger btn-sm">How to use <i class="fa fa-info-circle" aria-hidden="true"></i></a>
               </div>
              </div>
             </div>`;

@@ -184,7 +184,7 @@ body {
 				</div>
 			</div>
 
-			<button type="submit" onclick="validateLogin();"
+			<button type="submit" onclick="validateLogin(); this.disabled=true;"
 				class="btn btn-outline-primary mt-2">Login</button>
 
 		</div>
@@ -216,7 +216,7 @@ body {
 	"</div>"+
 	 	"</div>";
 
-	    let footer =  "<button type=\"submit\" onclick=\"sendForgotPasswordRequest();\" class=\"btn btn-info\">Send Request</button>";
+	    let footer =  "<button type=\"submit\" onclick=\"sendForgotPasswordRequest(); this.disabled=true;\" class=\"btn btn-info\">Send Request</button>";
 	    
 	    let popUp = new MainPopUpModal(header, ui, footer);
 	    popUp.show();

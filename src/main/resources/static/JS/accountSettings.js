@@ -70,7 +70,7 @@ function updateDetailsForm(user){
 			  +"</div>"
 			  +"</div>"
 		
-			+"<button type=\"submit\" onclick=\"updateProfile("+user.userId+")\" class=\"btn btn-outline-primary mt-2\">Save Details</button>"
+			+"<button type=\"submit\" onclick=\"updateProfile("+user.userId+");\" class=\"btn btn-outline-primary mt-2\">Save Details</button>"
 		+"</div>";
 	$(".account_set_Workspace").html(nav);
 }
