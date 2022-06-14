@@ -99,7 +99,7 @@ let cards = `
             </div>
            
           <div class="col-md-12">
-			 <a onclick="sendMailToAdmin(${couponList.couponId});" class="btn btn-primary" style="width: 100%;margin-bottom: 10vh;">Amount Paid</a>
+			 <a onclick="sendMailToAdmin(${couponList.couponId}); this.disabled=true;" class="btn btn-primary" style="width: 100%;margin-bottom: 10vh;">Amount Paid</a>
           </div>
 `;
 }else{

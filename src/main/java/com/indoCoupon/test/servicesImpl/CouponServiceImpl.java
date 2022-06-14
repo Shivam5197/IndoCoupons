@@ -114,7 +114,7 @@ public class CouponServiceImpl implements CouponService {
 		List<CouponsModal> couponsByBrand = new ArrayList<>();
 		try {
 			if(new Utils().isNotNull(brand)) {
-				couponsByBrand= couponRepo.findByBrandEquals(brand);
+				couponsByBrand= couponRepo.findByBrandAndCouponStatus(brand,Constants.couponStatus.ACTIVE);
 			}else {
 				errorList.add("Brand not found in the library");
 			}		
@@ -122,6 +122,7 @@ public class CouponServiceImpl implements CouponService {
 			e.printStackTrace();
 			errorList.add("Something went Wrong");
 		}	
+		log.info("Coupns Returned: "+ couponsByBrand);
 		return couponsByBrand;
 	}
 
