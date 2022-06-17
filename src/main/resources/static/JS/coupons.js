@@ -506,7 +506,7 @@ function usersList(users){
 					ui += 	`<th scope="col" >${users[i].fullName}</th>`;
 						ui += `<td>${users[i].email}</td>
 							<td>${users[i].phoneNumber}</td>`;
-					ui += `<td><button type="button" onclick="userPurchasedCoupons(${users[i].userId}) this.disabled=true;" class="btn btn-success">Check Coupons</button></td>`;
+					ui += `<td><button type="button" onclick="userPurchasedCoupons(${users[i].userId});" class="btn btn-success">Check Coupons</button></td>`;
 					
 						ui += `<td><button type="button" onclick="deleteUser(${users[i].userId}) this.disabled=true;" class="btn btn-danger""><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 						  </tr>`;
