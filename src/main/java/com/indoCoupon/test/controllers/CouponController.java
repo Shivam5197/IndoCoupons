@@ -181,7 +181,8 @@ public class CouponController {
 			apiResponseModal.setMessage("Something Went wrong Please try after sometime");	
 			e.printStackTrace();
 		}
-//		log.info("API REsponse Model : Active Coupons :" + apiResponseModal );
+		
+		log.info("API REsponse Model : Active Coupons :" + apiResponseModal );
 		return apiResponseModal;
 	}
 	
@@ -213,6 +214,7 @@ public class CouponController {
 			apiResponseModal.setMessage("Something went Wrong !");
 			apiResponseModal.setStatus(HttpStatus.BAD_REQUEST);
 		}
+		log.info("API RESPONSE MODEL :" + apiResponseModal.getData());
 		return apiResponseModal;
 	}
 	

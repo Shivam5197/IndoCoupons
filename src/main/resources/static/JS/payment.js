@@ -1,13 +1,6 @@
 
 function qrCodeUI(couponId){
 
-			Swal.fire({
-			  icon: 'error',
-			  title: 'Oops...',
-			  text: 'Due to some technical issue We are not able to accept UPI payments. We kindly request you to make the payment using Paytm wallet',
-			  footer: '<a onclick="phoneNumberPopup()" >Make payment Using Paytm Wallet</a>'
-			})
-
 var obj = new MasterAjax();
 obj.requestType = "POST";
 obj.url = "coupon/getCouponDetails/"+couponId+"";
@@ -36,7 +29,7 @@ let cards = `
 
       <div class="col-md-6">
         <h2>You can Scan this QR code to make payment or Use Paytm number: 9818535782</h2>
-        <img src="/images/qrcode.png" alt="" style="width: inherit;">
+        <img src="/images/qrcode.jpeg" alt="" style="width: inherit;">
       </div>
 
       <div class="col-md-6">

@@ -174,10 +174,9 @@ function activeCoupons(){
 }
 
 function getActiveCouponListCard(couponList){
-	
 	let cards = ``;
-	
-	if(couponList != 0||couponList !=null){
+	//undefined != object && null != object && object.length > 0
+	if(couponList.length > 0 && couponList != undefined && couponList !=null){
 	for (var i = 0; i < couponList.length; i++) {
 
 	cards += `<div class="col-lg-4 mb-3 mt-4">
@@ -238,6 +237,11 @@ function getActiveCouponListCard(couponList){
 		}
 	}else{
 	cards +=`<h1>No Coupons added yet !!</h1>`;
+			Swal.fire({
+			  icon: 'error',
+			  title: 'No Coupons Available. Try again Later !',
+			  text: 'We feel sorry to inform you. We do not have any coupons for you now Please try after sometime !',
+			})
 	}
 	$(".coupon-Cards").html(cards);
 
@@ -275,7 +279,7 @@ function homecardsbrandWise(couponList){
 		
 	let cards = ``;
 	
-	if(couponList != 0||couponList !=null){
+	if(couponList.length >0 &&couponList != 0 && couponList !=null){
 	for (var i = 0; i < couponList.length; i++) {
 
 	cards += `<div class="col-lg-4 mb-3 mt-4">
@@ -333,7 +337,12 @@ function homecardsbrandWise(couponList){
             </div>`;
 		}
 	}else{
-	cards +=`<h1>No Coupons added yet !!</h1>`;
+	cards +=`<h1>No Coupons available !!</h1>`;
+			Swal.fire({
+			  icon: 'error',
+			  title: 'No Coupons Available for this brand. Please Try again Later !',
+			  text: 'We feel sorry to inform you. We do not have any coupons of this brand for you now Please try after sometime !',
+			})
 	}
 	$(".coupon-Cards").html(cards);
 }
