@@ -493,6 +493,7 @@ function usersList(users){
 						<thead class="thead-light">
 						  <tr>
 							<th scope="col">Full Name</th>
+							<th scope="col">User Name</th>
 							<th scope="col">Email </th>
 							<th scope="col">Phone Number</th>
 							<th scope="col">Coupons Purchased</th>							
@@ -504,6 +505,7 @@ function usersList(users){
 					ui += `<tr>`;
 					
 					ui += 	`<th scope="col" >${users[i].fullName}</th>`;
+					ui += 	`<th scope="col" >${users[i].userName}</th>`;
 						ui += `<td>${users[i].email}</td>
 							<td>${users[i].phoneNumber}</td>`;
 					ui += `<td><button type="button" onclick="userPurchasedCoupons(${users[i].userId});" class="btn btn-success">Check Coupons</button></td>`;
